@@ -1,9 +1,10 @@
-/* header igual de todos */
-* {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+*{  
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial;
+    font-family: 'Poppins', sans-serif;
 }
 main {
     height: 100vh;
@@ -155,8 +156,107 @@ header .menu {
     width: 30px;
 }
 
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+}
+.about{
+    background: url(/src/images/header/Logo.svg) no-repeat left;
+    background-size: 55%;
+    background-color: #fdfdfd;
+    overflow: hidden;
+    padding: 100px 0;
+    margin-bottom: 30px;
+}
+.inner-section{
+    width: 55%;
+    float: right;
+    background-color: #fdfdfd;
+    padding: 140px;
+    box-shadow: 10px 10px 8px rgba(0,0,0,0.3);
+}
+.inner-section h1{
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 900;
+}
+.text{
+    font-size: 13px;
+    color: #545454;
+    line-height: 30px;
+    text-align: justify;
+    margin-bottom: 40px;
+}
+.skills button{
+    font-size: 22px;
+    text-align: center;
+    letter-spacing: 2px;
+    border: none;
+    border-radius: 20px;
+    padding: 8px;
+    width: 200px;
+    background-color: #00999c;
+    color: white;
+    cursor: pointer;
+}
+.skills button:hover{
+    transition: 1s;
+    background-color: #ecf5f5;
+    color: #00999c;
+}
+
+*::-webkit-scrollbar {
+    height: 9px;
+    width: 9px;
+  }
+  *::-webkit-scrollbar-track {
+    border-radius: 20px;
+    background-color: #F2F2F2;
+  }
+  
+  *::-webkit-scrollbar-track:hover {
+    background-color: #DFE9EC;
+  }
+  
+  *::-webkit-scrollbar-track:active {
+    background-color: #B8C0C2;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #363636;
+  }
+  
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: #A3A3A3;
+  }
+  
+  *::-webkit-scrollbar-thumb:active {
+    background-color: #A3A3A3;
+  }
+
 /* Media Queries */
-@media(max-width: 1000px) {
+@media screen and (max-width: 1200px) {
+    .inner-section{
+        padding: 80px;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .about{
+        background-size: 100%;
+        padding: 100px 40px;
+    }
+    .inner-section{
+        width: 100%;
+    }
     .search-box button {
         position: absolute;
     }
@@ -180,9 +280,21 @@ header .menu {
         right: 0;
     }
 }
-
 @media screen and (max-width: 768px) {
     .slider {
         height: 400px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .about{
+        padding: 0;
+    }
+    .inner-section{
+        padding: 60px;
+    }
+    .skills button{
+        font-size: 19px;
+        padding: 5px;
+        width: 160px;
     }
 }

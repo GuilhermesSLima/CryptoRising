@@ -5,3 +5,19 @@ HTML, CSS, JS, PHP/PYTHON
 frameworks: bootstrap 
 
 ultimo commit: 24/08 as 20:40 feito por Guila
+
+23:40
+Att: terminar somente o front até dia 31
+ultima alteração: login e cadastro e scroll
+o que tem que fazer pro front: {
+    Alterar imagens
+    fazer footer
+    fazer espaço para colocar informações no home page
+}
+
+o que tem que fazer pro back: {
+    buscar informações sobre como fazer login/banco de dados
+    integrar api
+}
+
+ultimo commit: 24/08 as 23:53 feito por Guila
