@@ -2,7 +2,7 @@ Comecei a refazer esse projeto dia 24, pretendo finalizar antes do dia 31.
 
 Linguagens:
 HTML, CSS, JS, PHP/PYTHON
-frameworks: bootstrap 
+frameworks: bootstrap
 
 ultimo commit: 24/08 as 20:40 feito por Guila
 
@@ -10,14 +10,39 @@ ultimo commit: 24/08 as 20:40 feito por Guila
 Att: terminar somente o front até dia 31
 ultima alteração: login e cadastro e scroll
 o que tem que fazer pro front: {
-    Alterar imagens
-    fazer footer
-    fazer espaço para colocar informações no home page
+Alterar imagens
+fazer footer
+fazer espaço para colocar informações no home page <-
 }
 
 o que tem que fazer pro back: {
-    buscar informações sobre como fazer login/banco de dados
-    integrar api
+buscar informações sobre como fazer login/banco de dados
+integrar api
 }
 
 ultimo commit: 24/08 as 23:53 feito por Guila
+
+dia 26/08
+
+coloquei a biblioteca scroll reveal para dar mai animação na pagina sobre,
+coloquei um acordeeão no index
+
+fazer hoje: {
+criar um card na pagina do index onde vai ficar as informações das moedas
+ajustar posicionamento do acordeeão
+e se der tempo fazer um footer
+}
+
+biblioteca: [scroll reveal](https://scrollrevealjs.org/)
+
+config para o card: {
+background: rgba( 255, 255, 255, 0.25 );
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 11px );
+-webkit-backdrop-filter: blur( 11px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+site do fundo fosco para o card: [site para fazer fundo fosco](https://hype4.academy/tools/glassmorphism-generator)
+
+ultimo commit: 26/08 as 14:58 feito por Guila
