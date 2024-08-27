@@ -1,185 +1,196 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
-body{
-    height: 200vh;
+body {
+  height: 200vh;
 }
-header{
-    width:100%;
-    height: 90px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    transition: top 0.3s;
-    background: black;
-    top: 0;
-    left: 0;
+header {
+  width: 100%;
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  transition: top 0.3s;
+  background: black;
+  top: 0;
+  left: 0;
+  margin-bottom: 7.5rem;
 }
-.logo img{
-    width: 90px;
+.logo img {
+  width: 90px;
 }
-#chk1{
-    display: none;
-     
-     
+#chk1 {
+  display: none;
 }
-i{
-    color: #fff;
-    cursor: pointer;
+i {
+  color: #fff;
+  cursor: pointer;
 }
-header .logo{
-    flex: 1;
-    color:#fff;
-    margin-left: 50px;
-    font-size: 15px;
+header .logo {
+  flex: 1;
+  color: #fff;
+  margin-left: 50px;
+  font-size: 15px;
 }
-header .search-box{
-    flex: 1;
-    position: relative;
+header .search-box {
+  flex: 1;
+  position: relative;
 }
-.search-box input{
-    width:100%;
-    height: 40px;
-    border: none;
-    outline: none;
-    background:#f2f2f2;
-    border-radius: 30px;
-    color:gray;
-    font-size: 16px;
-    padding-left: 5px;
-    padding-right: 40px;
-    text-align: center;
-     
+.search-box input {
+  width: 100%;
+  height: 40px;
+  border: none;
+  outline: none;
+  background: #f2f2f2;
+  border-radius: 30px;
+  color: gray;
+  font-size: 16px;
+  padding-left: 5px;
+  padding-right: 40px;
+  text-align: center;
 }
- 
-.search-box button{
-    cursor: pointer;
-    width:40px;
-    height: 40px;
-    border-radius: 30px;
-    border:none;
-    position: absolute;
-    top:0;
-    right: 0;
-    transform: scale(0.9);
-    background: black;
-    color: #fff;
+
+.search-box button {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 30px;
+  border: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: scale(0.9);
+  background: black;
+  color: #fff;
 }
 header ul {
-    flex:2;
-    display: flex;
-    justify-content: space-evenly;
+  flex: 2;
+  display: flex;
+  justify-content: space-evenly;
 }
-header ul li{
-    list-style: none;
+header ul li {
+  list-style: none;
 }
-header ul li a{
-    text-decoration: none;
-    color:#fff;
-    font-weight: 600;
-    padding: 10px 15px;
-    background: transparent;
+header ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 15px;
+  background: transparent;
 }
-header ul li a:hover{
-    border-bottom: 2px solid white;
+header ul li a:hover {
+  border-bottom: 2px solid white;
 }
-header .menu{
-    font-size: 2.5em;
-    display: none;
+header .menu {
+  font-size: 2.5em;
+  display: none;
 }
 
+main{
+  background: url(src/images/fundo\ brilhante.png);
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
 
+.card {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
 .accordion {
-    margin-top: 200px;
-    --bs-accordion-btn-color: white;
-    --bs-accordion-btn-bg: #464646;
-    --bs-accordion-active-bg: #5e5d5d;
-    --bs-accordion-active-color: white;
-    --bs-accordion-bg: #646464;
-    --bs-accordion-color: white;
-    --bs-accordion-btn-focus-box-shadow: none;
-  }
-  .accordion-button:not(.collapsed) {
-    box-shadow: none;
-  }
+  margin-top: 200px;
+  --bs-accordion-btn-color: white;
+  --bs-accordion-btn-bg: #464646;
+  --bs-accordion-active-bg: #5e5d5d;
+  --bs-accordion-active-color: white;
+  --bs-accordion-bg: #646464;
+  --bs-accordion-color: white;
+  --bs-accordion-btn-focus-box-shadow: none;
+}
+.accordion-button:not(.collapsed) {
+  box-shadow: none;
+}
 
-  .accordion-flush .accordion-button {
-    border-top: 1px solid #000000;
-  }
-  
-  .accordion-flush .accordion-item:last-child .accordion-button.collapsed,
-  .accordion-flush .accordion-item:last-child .accordion-body {
-    border-bottom: 1px solid #000000;
-  }
-  
-  .accordion-button::after {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/%3E%3C/svg%3E");
-    transition: all 0.5s;
-  }
-  .accordion-button:not(.collapsed)::after {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
-  }
+.accordion-flush .accordion-button {
+  border-top: 1px solid #000000;
+}
+
+.accordion-flush .accordion-item:last-child .accordion-button.collapsed,
+.accordion-flush .accordion-item:last-child .accordion-body {
+  border-bottom: 1px solid #000000;
+}
+
+.accordion-button::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/%3E%3C/svg%3E");
+  transition: all 0.5s;
+}
+.accordion-button:not(.collapsed)::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
+}
 
 *::-webkit-scrollbar {
-    height: 9px;
-    width: 9px;
+  height: 9px;
+  width: 9px;
+}
+*::-webkit-scrollbar-track {
+  border-radius: 20px;
+  background-color: #696969;
+}
+
+*::-webkit-scrollbar-track:hover {
+  background-color: #dfe9ec;
+}
+
+*::-webkit-scrollbar-track:active {
+  background-color: #b8c0c2;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #363636;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #a3a3a3;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: #a3a3a3;
+}
+
+@media (max-width: 1000px) {
+  .search-box button {
+    position: absolute;
   }
-  *::-webkit-scrollbar-track {
-    border-radius: 20px;
-    background-color: #F2F2F2;
-  }
-  
-  *::-webkit-scrollbar-track:hover {
-    background-color: #DFE9EC;
-  }
-  
-  *::-webkit-scrollbar-track:active {
-    background-color: #B8C0C2;
-  }
-  
-  *::-webkit-scrollbar-thumb {
-    border-radius: 5px;
-    background-color: #363636;
-  }
-  
-  *::-webkit-scrollbar-thumb:hover {
-    background-color: #A3A3A3;
-  }
-  
-  *::-webkit-scrollbar-thumb:active {
-    background-color: #A3A3A3;
+  header ul {
+    position: fixed;
+    top: 100px;
+    right: -100%;
+    background: rgba(0, 0, 0, 0.5);
+    height: calc(100vh - 100px);
+    width: 50%;
+    flex-direction: column;
+    align-items: center;
+    transition: right 0.5s linear;
   }
 
-@media(max-width:1000px){
-    .search-box button{
-        position: absolute;
-    }
-    header ul{
-        position: fixed;
-        top:100px;
-        right: -100%;
-        background: rgba(0,0,0,0.5);
-        height: calc(100vh - 100px);
-        width:50%;
-        flex-direction: column;
-        align-items: center;
-        transition: right 0.5s linear;
-    }
-     
-    header .menu{
-        display: block;
-        width:100px;
-        text-align: center;
-    }
-    #chk1:checked ~ ul{
-        right: 0;
-        
-    }
-  
+  header .menu {
+    display: block;
+    width: 100px;
+    text-align: center;
+  }
+  #chk1:checked ~ ul {
+    right: 0;
+  }
 }
