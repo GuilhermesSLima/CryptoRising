@@ -23,7 +23,7 @@ header {
   margin-bottom: 7.5rem;
 }
 .logo img {
-  width: 90px;
+  width: 5.625rem;
 }
 #chk1 {
   display: none;
@@ -98,18 +98,41 @@ main{
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  padding-top: 8%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+
+
+section{
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  padding: 30px;
+}
+
+aside{
+  padding: 30px;
+  width: 50rem;
+  display: flex;
+  flex-direction: column;
+  height: 30%;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .card {
   background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.37);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
+  color:#fff;
 }
 .accordion {
-  margin-top: 200px;
   --bs-accordion-btn-color: white;
   --bs-accordion-btn-bg: #464646;
   --bs-accordion-active-bg: #5e5d5d;
@@ -185,6 +208,10 @@ main{
     transition: right 0.5s linear;
   }
 
+  header .logo{
+    flex: 0.3;
+  }
+
   header .menu {
     display: block;
     width: 100px;
@@ -192,5 +219,30 @@ main{
   }
   #chk1:checked ~ ul {
     right: 0;
+    z-index: 1000;
+  }
+  
+  #chk1:checked ~ .card {
+    right: 0;
+    z-index: 1;
+  }
+
+
+  main{
+    flex-direction: column;
+    padding: 3%;
+    padding-top: 15rem;
+    justify-content: center;
+  }
+
+  .card{
+    z-index: 1;
+    height: 15rem;
+    margin-top: 5rem;
+  }
+
+  aside{
+    margin-top: 4rem;
+    width: 20.5rem;
   }
 }

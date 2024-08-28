@@ -49,3 +49,20 @@ ultimo commit: 26/08 as 14:58 feito por Guila
 
 tentativa de colocar o card, mas falhou, quando o card "desgruda"do header ele perde o blur, amanhã tem prova, entt n vou ficar mt tempo
 ultimo commit: 26/08 as 21:57 feito por Guila
+
+
+consegui separar o card, porém surgiu problema de que o menu fica atras do card.
+pesquisei sobre apis de criptomoedas: [API criptomoedas paprika](https://coinpaprika.com/api/pricing/)
+
+o que tem que fazer pro front: {
+Alterar imagens e colocar informações no sobre <- fazer amanhã
+fazer footer <- fazer amanhã
+fazer espaço para colocar informações no home page <- ✅
+}
+
+o que tem que fazer pro back: {
+buscar informações sobre como fazer login/banco de dados
+integrar api <- paprika
+}
+
+ultimo commit: 27/08 as 21:24 feito por Guila
