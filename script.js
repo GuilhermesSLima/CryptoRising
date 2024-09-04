@@ -11,3 +11,19 @@ window.onscroll = function () {
     }
     pAntes = pDepois;
 };
+
+function paprikaApi() {
+    let urlFinal = url + 'coins/'
+    // const headers = {'Authorization': apiKey}
+
+    fetch(urlFinal).then(response => response.json())
+    .then(data => {
+        console.log(data.slice(0,5))
+
+         if (data && data['rank']) {
+            console.log('Rank:', data.rank);
+        } else {
+            console.log('Não foi encontrado o rank');
+        }
+    })
+}
