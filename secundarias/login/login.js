@@ -80,7 +80,7 @@ document.getElementById('submitCadastro').addEventListener("click", function(eve
             const user = userCredential.user;
             alert("Conta criada com sucesso!");
             console.log("Usuário criado:", user);
-            window.location.href = '.../index.html';
+            window.location.href = '../../index.html';
         })
         .catch((error) => {
             const errorCode = error.code;
