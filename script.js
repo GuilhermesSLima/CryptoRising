@@ -1,3 +1,5 @@
+const apiKey = ''; // Chave da API
+const url = 'https://api.coinpaprika.com/v1/';
 let pAntes = window.scrollY;
 
 window.onscroll = function () {
@@ -19,11 +21,5 @@ function paprikaApi() {
     fetch(urlFinal).then(response => response.json())
     .then(data => {
         console.log(data.slice(0,5))
-
-         if (data && data['rank']) {
-            console.log('Rank:', data.rank);
-        } else {
-            console.log('Não foi encontrado o rank');
-        }
     })
 }
