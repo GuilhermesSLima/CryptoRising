@@ -7,7 +7,7 @@
   font-family: "Poppins", sans-serif;
 }
 body {
-  height: 200vh;
+  height: 100vh;
 }
 header {
   width: 100%;
@@ -17,7 +17,7 @@ header {
   align-items: center;
   position: fixed;
   transition: top 0.3s;
-  background: black;
+  background: #025E73;
   top: 0;
   left: 0;
   margin-bottom: 7.5rem;
@@ -93,7 +93,7 @@ header .menu {
 }
 
 main{
-  background: url(src/images/fundo\ brilhante.png);
+  background-color: #011F26;
   height: 100vh;
   background-repeat: no-repeat;
   background-position: center;
@@ -132,6 +132,25 @@ aside{
   border: 1px solid rgba(255, 255, 255, 0.18);
   color:#fff;
 }
+
+.card{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.listcoin{
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.listcoin .moedas{
+  border:2px solid #025E73;
+  border-radius: 10px;
+  
+}
+
 .accordion {
   --bs-accordion-btn-color: white;
   --bs-accordion-btn-bg: #464646;

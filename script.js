@@ -13,7 +13,7 @@ window.onscroll = function () {
 };
 
 function paprikaApi() {
-    let urlFinal = url + 'coins/'
+    let urlFinal = url + 'coins/';
     // const headers = {'Authorization': apiKey}
 
     fetch(urlFinal).then(response => response.json())
