@@ -1,0 +1,187 @@
+.desktop-1,
+.desktop-1 * {
+  box-sizing: border-box;
+}
+.desktop-1 {
+  background: #ffffff;
+  height: 2711px;
+  position: relative;
+  overflow: hidden;
+}
+.rectangle-1 {
+  background: #025e73;
+  width: 1440px;
+  height: 100px;
+  position: absolute;
+  left: 0px;
+  top: 3px;
+}
+.rectangle-6 {
+  background: #025e73;
+  width: 1440px;
+  height: 670px;
+  position: absolute;
+  left: 0px;
+  top: 103px;
+}
+.logo-tcc-3-1 {
+  width: 263px;
+  height: 78px;
+  position: absolute;
+  left: 35px;
+  top: 14px;
+  object-fit: cover;
+}
+.rectangle-5 {
+  background: #025e73;
+  width: 1440px;
+  height: 291px;
+  position: absolute;
+  left: 0px;
+  top: 2273px;
+}
+.coins-amico-1 {
+  width: 511px;
+  height: 509px;
+  position: absolute;
+  left: 812px;
+  top: 177px;
+  object-fit: cover;
+}
+.crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Italic", sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  font-style: italic;
+  position: absolute;
+  left: 125px;
+  top: 345px;
+  width: 595px;
+  height: 143px;
+}
+.sobre-n-s {
+  position: absolute;
+  left: 1017px;
+  top: 35px;
+  width: 102px;
+  height: 23px;
+
+}
+.sobre-n-s a{
+    color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  text-decoration: none;
+}
+.login {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  position: absolute;
+  left: 1208px;
+  top: 34px;
+  width: 55px;
+  height: 19px;
+}
+.rectangle-7 {
+  background: #011f26;
+  width: 1440px;
+  height: 750px;
+  position: absolute;
+  left: 0px;
+  top: 773px;
+}
+.rectangle-4 {
+  background: #a5a692;
+  width: 1440px;
+  height: 750px;
+  position: absolute;
+  left: 0px;
+  top: 1523px;
+}
+.coins-rafiki-1-1 {
+  width: 685px;
+  height: 651px;
+  position: absolute;
+  left: 35px;
+  top: 857px;
+  object-fit: cover;
+}
+.cota-o-da-criptomoeda-em-tempo-real {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 48px;
+  font-weight: 300;
+  position: absolute;
+  left: 790px;
+  top: 947px;
+  width: 595px;
+  height: 116px;
+}
+.todas-as-moedas-aqui {
+  color: #ffffff;
+  text-align: right;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 32px;
+  font-weight: 300;
+  position: absolute;
+  right: 75px;
+  top: 1078px;
+  width: 595px;
+  height: 38px;
+}
+.perguntas-frequentes {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 64px;
+  font-weight: 300;
+  position: absolute;
+  left: 317px;
+  top: 1567px;
+  width: 827px;
+  height: 132px;
+}
+.group-1 {
+  position: absolute;
+  inset: 0;
+}
+.rectangle-8 {
+  background: #011f26;
+  border-radius: 10px;
+  width: 104px;
+  height: 33px;
+  position: absolute;
+  left: 1275px;
+  top: 27px;
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  position: absolute;
+  left: 1283px;
+  bottom: 2658px;
+  width: 87px;
+  height: 19px;
+}
+/* .cadastro {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  position: absolute;
+  left: 1283px;
+  bottom: 2658px;
+  width: 87px;
+  height: 19px;
+}
+ */
