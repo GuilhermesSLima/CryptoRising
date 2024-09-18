@@ -1,4 +1,4 @@
-window.onload = paprikaApi
+// window.onload = paprikaApi
 
 const apiKey = ''; // Chave da API
 const url = 'https://api.coinpaprika.com/v1/';
