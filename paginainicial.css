@@ -1,45 +1,81 @@
-.desktop-1,
-.desktop-1 * {
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
-.desktop-1 {
+
+body {
   background: #ffffff;
-  height: 2711px;
-  position: relative;
-  overflow: hidden;
+  height: 300vh;
+  margin: 0;
+  padding: 0;
 }
+
 .rectangle-1 {
   background: #025e73;
-  width: 1440px;
+  width: 100%;
   height: 100px;
-  position: absolute;
-  left: 0px;
-  top: 3px;
+  display: flex;
+  align-items: center;
 }
-.rectangle-6 {
-  background: #025e73;
-  width: 1440px;
-  height: 670px;
-  position: absolute;
-  left: 0px;
-  top: 103px;
+
+.rectangle-8 {
+  background: #011f26;
+  border-radius: 10px;
+  width: 104px;
+  height: 33px;
+  text-align: center;
+  color: #ffffff;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
 }
+
+.navesq {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.navesq li {
+  list-style: none;
+}
+
+.navesq li a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.sobre-n-s:hover {
+  border-bottom: 2px solid white;
+}
+
+.login:hover {
+  border-bottom: 2px solid white;
+}
+
 .logo-tcc-3-1 {
   width: 263px;
   height: 78px;
-  position: absolute;
-  left: 35px;
-  top: 14px;
   object-fit: cover;
 }
+
+.rectangle-6 {
+  background: #025e73;
+  width: 100%;
+  height: 670px;
+}
+
 .rectangle-5 {
   background: #025e73;
-  width: 1440px;
-  height: 291px;
-  position: absolute;
-  left: 0px;
-  top: 2273px;
+  width: 100%;
+  height: 194px;
 }
+
 .coins-amico-1 {
   width: 511px;
   height: 509px;
@@ -48,6 +84,7 @@
   top: 177px;
   object-fit: cover;
 }
+
 .crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro {
   color: #ffffff;
   text-align: left;
@@ -61,22 +98,18 @@
   width: 595px;
   height: 143px;
 }
+
 .sobre-n-s {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
   position: absolute;
-  left: 1017px;
-  top: 35px;
   width: 102px;
   height: 23px;
+}
 
-}
-.sobre-n-s a{
-    color: #ffffff;
-  text-align: left;
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  text-decoration: none;
-}
 .login {
   color: #ffffff;
   text-align: left;
@@ -84,27 +117,22 @@
   font-size: 20px;
   font-weight: 400;
   position: absolute;
-  left: 1208px;
-  top: 34px;
   width: 55px;
   height: 19px;
 }
+
 .rectangle-7 {
   background: #011f26;
-  width: 1440px;
+  width: 100%;
   height: 750px;
-  position: absolute;
-  left: 0px;
-  top: 773px;
 }
+
 .rectangle-4 {
   background: #a5a692;
-  width: 1440px;
+  width: 100%;
   height: 750px;
-  position: absolute;
-  left: 0px;
-  top: 1523px;
 }
+
 .coins-rafiki-1-1 {
   width: 685px;
   height: 651px;
@@ -113,6 +141,7 @@
   top: 857px;
   object-fit: cover;
 }
+
 .cota-o-da-criptomoeda-em-tempo-real {
   color: #ffffff;
   text-align: left;
@@ -125,6 +154,7 @@
   width: 595px;
   height: 116px;
 }
+
 .todas-as-moedas-aqui {
   color: #ffffff;
   text-align: right;
@@ -132,56 +162,235 @@
   font-size: 32px;
   font-weight: 300;
   position: absolute;
-  right: 75px;
-  top: 1078px;
   width: 595px;
   height: 38px;
 }
+
 .perguntas-frequentes {
   color: #000000;
-  text-align: left;
+  text-align: center;
   font-family: "Inter-Light", sans-serif;
   font-size: 64px;
   font-weight: 300;
-  position: absolute;
-  left: 317px;
-  top: 1567px;
-  width: 827px;
+  width: 100%;
   height: 132px;
 }
-.group-1 {
-  position: absolute;
-  inset: 0;
+
+.accordion {
+  --bs-accordion-btn-color: white;
+  --bs-accordion-btn-bg: #464646;
+  --bs-accordion-active-bg: #5e5d5d;
+  --bs-accordion-active-color: white;
+  --bs-accordion-bg: #646464;
+  --bs-accordion-color: white;
+  --bs-accordion-btn-focus-box-shadow: none;
 }
-.rectangle-8 {
-  background: #011f26;
-  border-radius: 10px;
-  width: 104px;
-  height: 33px;
-  position: absolute;
-  left: 1275px;
-  top: 27px;
-  color: #ffffff;
-  text-align: left;
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  position: absolute;
-  left: 1283px;
-  bottom: 2658px;
-  width: 87px;
-  height: 19px;
+
+.accordion-button:not(.collapsed) {
+  box-shadow: none;
 }
-/* .cadastro {
-  color: #ffffff;
-  text-align: left;
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  position: absolute;
-  left: 1283px;
-  bottom: 2658px;
-  width: 87px;
-  height: 19px;
+
+.accordion-flush .accordion-button {
+  border-top: 1px solid #000000;
 }
- */
+
+.accordion-flush .accordion-item:last-child .accordion-button.collapsed,
+.accordion-flush .accordion-item:last-child .accordion-body {
+  border-bottom: 1px solid #000000;
+}
+
+.accordion-button::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/%3E%3C/svg%3E");
+  transition: all 0.5s;
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
+}
+
+
+/* Responsividade */
+@media (max-width: 1200px) {
+  .rectangle-6 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .coins-amico-1,
+  .coins-rafiki-1-1 {
+    width: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro {
+    align-items: center;
+    z-index: 999;
+    top: 15%;
+  }
+
+  .crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro,
+  .cota-o-da-criptomoeda-em-tempo-real {
+    width: 80%;
+    left: 10%;
+    font-size: 32px;
+  }
+
+  .rectangle-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .accordion {
+    width: 85%;
+  }
+}
+
+@media (max-width: 768px) {
+  .rectangle-1 {
+    height: 80px;
+  }
+
+  .coins-amico-1,
+  .coins-rafiki-1-1 {
+    width: 80%;
+    left: 10%;
+    transform: none;
+  }
+
+  .crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro,
+  .cota-o-da-criptomoeda-em-tempo-real {
+    font-size: 24px;
+    left: 5%;
+    width: 90%;
+  }
+
+  .perguntas-frequentes {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 576px) {
+  .rectangle-1 {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+
+  .navesq {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .coins-amico-1,
+  .coins-rafiki-1-1 {
+    width: 100%;
+    left: 0;
+  }
+
+  .crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro,
+  .cota-o-da-criptomoeda-em-tempo-real {
+    font-size: 20px;
+    text-align: center;
+    left: 0;
+  }
+
+  .todas-as-moedas-aqui {
+    font-size: 24px;
+  }
+
+  .perguntas-frequentes {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 430px) {
+  .rectangle-1 {
+    background: #025e73;
+    width: 100%;
+    height: 560px;
+    left: 0px;
+    top: 216px;
+  }
+  .rectangle-1 {
+    background: #025e73;
+    width: 430px;
+    height: 216px;
+    left: 0px;
+    top: 0px;
+  }
+  .logo-tcc-3-2 {
+    width: 220px;
+    height: 47px;
+    left: 105px;
+    top: 36px;
+    object-fit: cover;
+  }
+  .sobre-n-s {
+    color: #ffffff;
+    text-align: left;
+    font-family: "Inter-Bold", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    position: absolute;
+    left: 164px;
+    top: 98px;
+    width: 102px;
+    height: 23px;
+  }
+  .login {
+    color: #ffffff;
+    text-align: left;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    position: absolute;
+    left: 187px;
+    top: 136px;
+    width: 55px;
+    height: 19px;
+  }
+  .rectangle-8 {
+    background: #011f26;
+    border-radius: 10px;
+    width: 104px;
+    height: 33px;
+    position: absolute;
+    left: 163px;
+    top: 170px;
+  }
+  .cadastro {
+    color: #ffffff;
+    text-align: left;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    position: absolute;
+    left: 171px;
+    bottom: 2269px;
+    width: 87px;
+    height: 19px;
+  }
+  .coins-amico-2 {
+    width: 343px;
+    height: 315px;
+    left: 43px;
+    top: 461px;
+    object-fit: cover;
+  }
+  .crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro {
+    color: #ffffff;
+    text-align: center;
+    font-family: "Inter-Italic", sans-serif;
+    font-size: 40px;
+    font-weight: 400;
+    font-style: italic;
+    position: absolute;
+    left: 63px;
+    top: 230px;
+    width: 304px;
+    height: 69px;
+  }
+  
+}
