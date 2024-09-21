@@ -21,14 +21,32 @@
 </head>
 
 <body>
-  <div class="rectangle-1">
-    <img class="logo-tcc-3-1" src="/src/images/logo tcc (3).png" />
-    <ul class="navesq">
-      <li><div class="sobre-n-s"><a href="/secundarias/sobre/sobre.html">Sobre nos</a></div></li>
-      <li><div class="login"><a href="/secundarias/login/login.html">Login</a></div></li>
-      <li><div class="rectangle-8"><a href="/secundarias/login/login.html">Cadastro</a></div></li>
+<div class="rectangle-1">
+  <img class="logo-tcc-3-1" src="/src/images/logo tcc (3).png" />
+  <div class="menu-sanduiche">
+    <div class="menu-icon" onclick="toggleMenu()">
+      <i class="fa fa-bars" aria-hidden="true" id="menuIcon"></i>
+    </div>
+    <ul class="navesq" id="navMenu">
+      <!-- Adicione os itens do menu aqui -->
+      <li class="list"><a href="/secundarias/sobre/sobre.html">Sobre nós</a></li>
+      <li class="list"><a href="/secundarias/login/login.html">Login</a></li>
+      <li class="list"><a href="/secundarias/login/login.html">Cadastro</a></li>
     </ul>
   </div>
+  <!-- <div class="menu-sanduiche">
+    <div class="menu-icon" onclick="toggleMenu()">
+      <i class="fa fa-bars" aria-hidden="true" id="menuIcon"></i>
+    </div>
+    <ul class="navesq" id="navMenu">
+      <li><a href="/secundarias/sobre/sobre.html">Sobre nós</a></li>
+      <li><a href="/secundarias/login/login.html">Login</a></li>
+      <li><a href="/secundarias/login/login.html">Cadastro</a></li>
+    </ul>
+  </div> -->
+  
+  
+</div>
   
   <div class="rectangle-6">
     <div class="crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro">
@@ -49,7 +67,7 @@
         <!-- Accordion 1 -->
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
               O que são Criptomoedas?
             </button>
           </h2>
@@ -105,11 +123,10 @@
         <!-- Accordion 5 -->
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingFive">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
               As 10 moedas mais promissoras de 2025
             </button>
           </h2>
-    position: absolute;
     <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingFive" data-bs-parent="#accordionExemplo">
             <div class="accordion-body">
               1. Bitcoin (BTC) <br>

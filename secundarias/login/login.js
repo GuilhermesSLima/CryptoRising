@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
     mostrarLogin();
 });
 
-// Função de submissão de login
+// Função de submissão de registro
 document.getElementById('submitCadastro').addEventListener("click", function(event) {
     event.preventDefault();
 
@@ -80,7 +80,7 @@ document.getElementById('submitCadastro').addEventListener("click", function(eve
             const user = userCredential.user;
             alert("Conta criada com sucesso!");
             console.log("Usuário criado:", user);
-            window.location.href = '../../index.html';
+            window.location.href = 'login.html';
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -89,3 +89,28 @@ document.getElementById('submitCadastro').addEventListener("click", function(eve
             console.error("Erro ao criar conta:", errorCode, errorMessage);
         });
 });
+
+// Função de submissão de login
+document.getElementById('submit').addEventListener("click", function(event) {
+    event.preventDefault();
+
+    // Obter valores dos inputs
+    const email = document.getElementById('emailLogin').value;
+    const password = document.getElementById('senhaLogin').value;
+
+    // Fazer login com email e senha
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Login bem-sucedido
+            const user = userCredential.user;
+            window.location.href = '../../index.html'; // Redirecionar para a página inicial
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert("Erro: " + errorMessage);
+            console.error("Erro ao fazer login:", errorCode, errorMessage);
+        });
+});
+
+    /* window.location.href = '../../index.html'; */

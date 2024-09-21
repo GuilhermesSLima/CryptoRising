@@ -1,10 +1,18 @@
-function menuShow() {
-    let menuMobile = document.querySelector('.mobile-menu');
-    if (menuMobile.classList.contains('open')) {
-        menuMobile.classList.remove('open');
-        document.querySelector('.icon').src = "/src/images/menu_white_36dp.svg";
-    } else {
-        menuMobile.classList.add('open');
-        document.querySelector('.icon').src = "/src/images/close_white_36dp.svg";
-    }
+let menuIcon = document.getElementById('menuIcon');
+let navMenu = document.getElementById('navMenu');
+
+function toggleMenu() {
+  navMenu.classList.toggle('active');
+  if (navMenu.classList.contains('active')) {
+    navMenu.style.display = 'block';
+  } else {
+    navMenu.style.display = 'none';
+  }
+  if (menuIcon.classList.contains('fa-bars')) {
+    menuIcon.classList.remove('fa-bars');
+    menuIcon.classList.add('fa-times');
+  } else {
+    menuIcon.classList.remove('fa-times');
+    menuIcon.classList.add('fa-bars');
+  }
 }
