@@ -103,7 +103,7 @@ document.getElementById('submit').addEventListener("click", function(event) {
         .then((userCredential) => {
             // Login bem-sucedido
             const user = userCredential.user;
-            window.location.href = '../../index.html'; // Redirecionar para a página inicial
+            window.location.href = '../../pdlogin.html'; // Redirecionar para a página inicial
         })
         .catch((error) => {
             const errorCode = error.code;
