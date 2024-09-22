@@ -5,61 +5,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crypto Rising</title>
-  <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" href="paginainicial.css">
   <link rel="icon" href="/src/images/header/logosite.svg" type="image/svg+xml" />
 
 </head>
 
 <body>
-<div class="rectangle-1">
-  <img class="logo-tcc-3-1" src="/src/images/logo tcc (3).png" />
-  <div class="menu-sanduiche">
-    <div class="menu-icon" onclick="toggleMenu()">
-      <i class="fa fa-bars" aria-hidden="true" id="menuIcon"></i>
-    </div>
-    <ul class="navesq" id="navMenu">
-      <!-- Adicione os itens do menu aqui -->
-      <li class="list"><a href="/secundarias/sobre/sobre.html">Sobre nós</a></li>
-      <li class="list"><a href="/secundarias/login/login.html">Login</a></li>
-      <li class="list"><a href="/secundarias/login/login.html">Cadastro</a></li>
-    </ul>
-  </div>
-  <!-- <div class="menu-sanduiche">
-    <div class="menu-icon" onclick="toggleMenu()">
-      <i class="fa fa-bars" aria-hidden="true" id="menuIcon"></i>
-    </div>
-    <ul class="navesq" id="navMenu">
-      <li><a href="/secundarias/sobre/sobre.html">Sobre nós</a></li>
-      <li><a href="/secundarias/login/login.html">Login</a></li>
-      <li><a href="/secundarias/login/login.html">Cadastro</a></li>
-    </ul>
-  </div> -->
-  
-  
-</div>
-  
+    <header>
+      <img class="logo-tcc-3-1" src="/src/images/logo tcc (3).png" />
+      <nav>
+        <div class="hamburguer" onclick="toggleMenu()"><i class="bi bi-list"></i></div>
+        <ul id="menu">
+          <li class="list"><a href="/secundarias/sobre/sobre.html">Sobre nós</a></li>
+          <li class="list"><a href="/secundarias/login/login.html">Login</a></li>
+          <li class="list"><a href="/secundarias/login/login.html">Cadastro</a></li>
+        </ul>
+      </nav>
+    </header>
+    
   <div class="rectangle-6">
-    <div class="crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro">
-      &quot;Crypto Rising: invista em criptomoedas e eleve seu futuro!&quot;
-    </div>
+      <p class="crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro">
+     &quot;Crypto Rising: invista em criptomoedas e eleve seu futuro!&quot;
+    </p>
     <img class="coins-amico-1" src="/src/images/Coins-amico.png" />
   </div>
   <div class="rectangle-7"></div>
-  <img class="coins-rafiki-1-1" src="/src/images/Coins-rafiki (1).png" />
-  <div class="cota-o-da-criptomoeda-em-tempo-real">
+  <p class="cota-o-da-criptomoeda-em-tempo-real">
     Cotação da criptomoeda em tempo real
-    <div class="todas-as-moedas-aqui">Todas as moedas aqui!</div>
-  </div>
+  </p>
+  <div class="todas-as-moedas-aqui">Todas as moedas aqui!</div>
+    <img class="coins-rafiki-1-1" src="/src/images/Coins-rafiki (1).png" />
   <div class="rectangle-4">
     <div class="perguntas-frequentes">PERGUNTAS FREQUENTES</div>
     <div class="container mt-5" id="containerpai" style="margin-top: 30;">
@@ -67,67 +46,80 @@
         <!-- Accordion 1 -->
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
               O que são Criptomoedas?
             </button>
           </h2>
-          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExemplo">
+          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+            data-bs-parent="#accordionExemplo">
             <div class="accordion-body">
-              São moedas digitais que utilizam criptografia para garantir a segurança das transações e controlar a criação de novas unidades. 
-    Operam em uma tecnologia chamada blockchain, que é um registro público de todas as transações feitas.
+              São moedas digitais que utilizam criptografia para garantir a segurança das transações e controlar a
+              criação de novas unidades.
+              Operam em uma tecnologia chamada blockchain, que é um registro público de todas as transações feitas.
             </div>
           </div>
         </div>
         <!-- Accordion 2 -->
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
               Qual a diferença entre Bitcoin e Altcoin?
             </button>
           </h2>
-          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExemplo">
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+            data-bs-parent="#accordionExemplo">
             <div class="accordion-body">
-              De modo prático, o Bitcoin foi a primeira criptomoeda e é a mais conhecida e valiosa até hoje. 
-    Já Altcoin, é um termo usado para se referir a todas as outras criptomoedas além do Bitcoin.
+              De modo prático, o Bitcoin foi a primeira criptomoeda e é a mais conhecida e valiosa até hoje.
+              Já Altcoin, é um termo usado para se referir a todas as outras criptomoedas além do Bitcoin.
             </div>
           </div>
         </div>
         <!-- Accordion 3 -->
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
               O que é uma corretora de criptomoedas?
             </button>
           </h2>
-          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExemplo">
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+            data-bs-parent="#accordionExemplo">
             <div class="accordion-body">
-              É uma plataforma online que permite a compra, venda e troca de criptomoedas por outras moedas fiduciárias (como dólares) ou por outras criptomoedas. 
-     Elas funcionam como intermediários entre os compradores e vendedores, facilitando as transações.
+              É uma plataforma online que permite a compra, venda e troca de criptomoedas por outras moedas fiduciárias
+              (como dólares) ou por outras criptomoedas.
+              Elas funcionam como intermediários entre os compradores e vendedores, facilitando as transações.
             </div>
           </div>
         </div>
         <!-- Accordion 4 -->
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingFour">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
               Como rastrear o preço das criptomoedas?
             </button>
           </h2>
-          <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExemplo">
+          <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+            data-bs-parent="#accordionExemplo">
             <div class="accordion-body">
-              Através de sites especializados, como o CoinMarketCap, que fornecem informações em tempo real sobre os preços e volumes de negociação de várias criptomoedas. 
-    Além disso, muitas corretoras, como a Binance, oferecem gráficos de preços em suas plataformas.
+              Através de sites especializados, como o CoinMarketCap, que fornecem informações em tempo real sobre os
+              preços e volumes de negociação de várias criptomoedas.
+              Além disso, muitas corretoras, como a Binance, oferecem gráficos de preços em suas plataformas.
             </div>
           </div>
         </div>
         <!-- Accordion 5 -->
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingFive">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive"
+              aria-expanded="false" aria-controls="collapseFive">
               As 10 moedas mais promissoras de 2025
             </button>
           </h2>
-    <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingFive" data-bs-parent="#accordionExemplo">
+          <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingFive"
+            data-bs-parent="#accordionExemplo">
             <div class="accordion-body">
               1. Bitcoin (BTC) <br>
               2. Solana (SOL) <br>
@@ -146,12 +138,10 @@
     </div>
   </div>
   <div class="rectangle-5">ooii</div>
-<script src="paginainicial.js"></script>
-  <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
+  <script src="paginainicial.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

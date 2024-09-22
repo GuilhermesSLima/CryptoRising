@@ -73,13 +73,9 @@ body {
 .coins-amico-1 {
   width: 511px;
   height: 509px;
-  position: absolute;
-  left: 812px;
-  top: 177px;
-  object-fit: cover;
 }
 
-.crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro {
+p{
   color: #ffffff;
   text-align: left;
   font-family: "Inter-Italic", sans-serif;
@@ -91,7 +87,7 @@ body {
   width: 595px;
   height: 143px;
   margin: 10px;
-}
+ }
 
 .sobre-n-s {
   color: #ffffff;
@@ -202,64 +198,81 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
 }
 
-.rectangle-1{
-  display: flex;
+header{
+  width: 100%;
+  background-color: #ADD8E6;
+    color: #fff;
+    padding: 10px;
 }
 
-.rectangle-1 .menu-sanduiche{
-  justify-content: end;
+nav{
+  position: relative;
 }
 
-.menu-sanduiche {
-  width: 0;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative; /* Adicionei essa linha para posicionar a lista abaixo do ícone */
-
-}
-
-.menu-icon {
-  display: block;
+.hamburguer{
+  display: none;
   cursor: pointer;
 }
 
-.navesq {
-  display: none;
+nav ul{
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+nav ul li {
+  margin: 0 15px;
+}
+
+nav ul li a{
+  color: #fff;
+  text-decoration: none;
+}
+
+.rectangle-6, .rectangle-7{
+  display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  justify-content: end;
-  list-style: none;
-  position: absolute;
-  top: 50px; /* Adicionei essa linha para posicionar a lista abaixo do ícone */
-  left: 0; /* Adicionei essa linha para alinhar a lista à esquerda */
-}
-.navesq .list a{
-  text-decoration: none;
-  color: #fff;
 }
 
-#menuIcon {
-  font-size: 24px;
-  color: #fff;
+@media (max-width: 768px) {
+  .hamburguer{
+      display: block;
+      position: absolute;
+      right: 10px;
+      top: -50px;
+  }
+  nav ul{
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 40px;
+      left: 0;
+      background-color: rgb(127, 161, 190);
+      width: 100%;
+  }
+  nav ul li{
+      margin: 10px 0;
+      text-align: center;
+  }
+  nav ul.show{
+      display: flex;
+      z-index: 99;
+  }
+.crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro{
+  font-size: 15px;
+  width: 30%;
 }
 
-#menuIcon.active {
-  font-size: 24px;
-  color: #fff;
-  transform: rotate(45deg);
-}
 
-#menuIcon.inactive {
-  font-size: 24px;
-  color: #fff;
-  transform: rotate(0deg);
+  .coins-amico-1, .coins-rafiki-1-1{
+    width: 50%;
+    height: 50%;
+  }
 }
 
 /* Responsividade */
-@media (max-width: 1200px) {
+/*@media (max-width: 1200px) {
   .rectangle-6 {
     display: flex;
     flex-direction: column;
@@ -271,8 +284,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
   }
-
-  .crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro {
+   .crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro {
     align-items: center;
     z-index: 999;
     top: 15%;
@@ -296,90 +308,4 @@ body {
   }
 }
 
-@media (max-width: 768px) {
-  .rectangle-1 {
-    height: 80px;
-  }
-
-  .coins-amico-1,
-  .coins-rafiki-1-1 {
-    width: 80%;
-    left: 10%;
-    transform: none;
-  }
-
-  .crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro,
-  .cota-o-da-criptomoeda-em-tempo-real {
-    font-size: 24px;
-    left: 5%;
-    width: 90%;
-  }
-
-  .perguntas-frequentes {
-    font-size: 48px;
-  }
-}
-
-@media (max-width: 576px) {
-  .rectangle-1 {
-    flex-direction: column;
-    height: auto;
-    padding: 10px;
-  }
-
-  .navesq {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .coins-amico-1,
-  .coins-rafiki-1-1 {
-    width: 100%;
-    left: 0;
-  }
-
-  .crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro,
-  .cota-o-da-criptomoeda-em-tempo-real {
-    font-size: 20px;
-    text-align: center;
-    left: 0;
-  }
-
-  .todas-as-moedas-aqui {
-    font-size: 24px;
-  }
-
-  .perguntas-frequentes {
-    font-size: 36px;
-  }
-}
-
-@media (max-width: 430px) {
-  .rectangle-1 {
-    background: #025e73;
-    width: 100%;
-    padding: 20px 0; /* Adiciona espaço acima e abaixo */
-    text-align: center; /* Centraliza o conteúdo da barra */
-    height: auto;
-  }
-  
-  .navesq {
-    flex-direction: column; /* Coloca a lista em coluna */
-    align-items: center; /* Centraliza os itens */
-    padding: 0; /* Remove padding extra */
-  }
-  
-  .navesq li {
-    list-style: none; /* Remove os marcadores da lista */
-  }
-
-  .navesq li a {
-    display: inline-block; /* Permite que os links sejam estilizados */
-    padding: 10px 20px; /* Espaçamento ao redor do texto */
-    color: #ffffff; /* Cor do texto */
-    text-decoration: none; /* Remove sublinhado */
-    border-radius: 5px; /* Bordas arredondadas para visual agradável */
-  }
-
-}
-
+ */
