@@ -200,7 +200,7 @@ p{
 
 header{
   width: 100%;
-  background-color: #ADD8E6;
+  background-color: #025e73;
     color: #fff;
     padding: 10px;
 }
@@ -246,9 +246,9 @@ nav ul li a{
       display: none;
       flex-direction: column;
       position: absolute;
-      top: 40px;
+      top: 20px;
       left: 0;
-      background-color: rgb(127, 161, 190);
+      background-color: #025e73;
       width: 100%;
   }
   nav ul li{
