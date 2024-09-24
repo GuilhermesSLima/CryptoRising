@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -18,6 +19,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
+const db = getFirestore(app); // Inicializando o Firestore
 
 document.addEventListener("DOMContentLoaded", function() {
     // Função para alternar o menu
@@ -70,6 +72,7 @@ document.getElementById('submitCadastro').addEventListener("click", function(eve
     event.preventDefault();
 
     // Obter valores dos inputs
+    const nome = document.getElementById('nomeCadastro').value;  // Obter o nome do usuário
     const email = document.getElementById('emailCadastro').value;
     const password = document.getElementById('senhaCadastro').value;
 
@@ -78,8 +81,15 @@ document.getElementById('submitCadastro').addEventListener("click", function(eve
         .then((userCredential) => {
             // Usuário criado
             const user = userCredential.user;
+
+            // Salvar o nome e email do usuário no Firestore
+            return setDoc(doc(db, "users", user.uid), {
+                nome: nome,
+                email: email
+            });
+        })
+        .then(() => {
             alert("Conta criada com sucesso!");
-            console.log("Usuário criado:", user);
             window.location.href = 'login.html';
         })
         .catch((error) => {
@@ -113,4 +123,22 @@ document.getElementById('submit').addEventListener("click", function(event) {
         });
 });
 
-    /* window.location.href = '../../index.html'; */
+// Função para recuperação de senha
+window.recuperarSenha = function() {
+    const email = prompt("Por favor, insira o seu email para recuperação de senha:");
+
+    if (email) {
+        sendPasswordResetEmail(auth, email)
+            .then(() => {
+                alert("Um e-mail de recuperação de senha foi enviado para " + email);
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                alert("Erro ao enviar e-mail de recuperação: " + errorMessage);
+                console.error("Erro ao enviar e-mail de recuperação:", errorCode, errorMessage);
+            });
+    } else {
+        alert("Por favor, insira um endereço de e-mail válido.");
+    }
+};

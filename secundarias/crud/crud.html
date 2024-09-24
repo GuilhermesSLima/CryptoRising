@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Usuário</title>
+    <style>
+        /* Ocultar o conteúdo até que a autenticação seja verificada */
+        #perfilUsuario {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Estrutura da página com o perfil do usuário -->
+    <div id="perfilUsuario">
+        <h2>Editar Perfil</h2>
+        <label for="emailAtual">Email Atual:</label>
+        <input type="text" id="emailAtual" disabled>
+        
+        <label for="novoEmail">Novo Email:</label>
+        <input type="text" id="novoEmail" placeholder="Digite seu novo email">
+
+        <label for="novaSenha">Nova Senha:</label>
+        <input type="password" id="novaSenha" placeholder="Digite sua nova senha">
+
+        <button id="btnAtualizar">Atualizar Informações</button>
+        <button id="btnDeletarConta">Deletar Conta</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    
+    <script src="crud.js"></script> <!-- Referência ao arquivo JS que controla o CRUD -->
+</body>
+</html>
