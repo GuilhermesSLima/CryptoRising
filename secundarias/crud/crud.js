@@ -68,12 +68,8 @@ document.getElementById('btnDeletarConta').addEventListener("click", function() 
         alert("Ação cancelada.");
     }
 });
-document.getElementById('btnLogout').addEventListener('click', function() {
-    auth.signOut().then(() => {
-        alert("Logout realizado com sucesso.");
-        window.location.href = '../login/login.html'; // Redireciona para a página de login
-    }).catch((error) => {
-        console.error("Erro ao fazer logout: ", error);
-        alert("Erro ao fazer logout: " + error.message);
-    });
+
+// Função para redirecionar para a página de login
+document.getElementById('btnVoltar').addEventListener('click', function() {
+    window.location.href = '../../pdlogin.html'; // Redirecionar para a página de login
 });
