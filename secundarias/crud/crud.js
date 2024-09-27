@@ -35,8 +35,12 @@ document.getElementById('btnAtualizar').addEventListener("click", function() {
     // Atualizar o email
     if (novoEmail !== "" && novoEmail !== user.email) {
         user.updateEmail(novoEmail).then(() => {
-            alert("Email atualizado com sucesso!");
-            document.getElementById('emailAtual').value = novoEmail; // Atualiza o campo com o novo email
+            // Enviar email de verificação
+            user.sendEmailVerification().then(() => {
+                alert("Email de verificação enviado para o novo email. Por favor, verifique antes de continuar.");
+            }).catch((error) => {
+                alert("Erro ao enviar o email de verificação: " + error.message);
+            });
         }).catch((error) => {
             alert("Erro ao atualizar o email: " + error.message);
         });
@@ -51,6 +55,7 @@ document.getElementById('btnAtualizar').addEventListener("click", function() {
         });
     }
 });
+
 
 // Deletar a conta do usuário
 document.getElementById('btnDeletarConta').addEventListener("click", function() {
