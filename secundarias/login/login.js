@@ -2,7 +2,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -19,7 +18,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
-const db = getFirestore(app); // Inicializando o Firestore
 
 document.addEventListener("DOMContentLoaded", function() {
     // Função para alternar o menu
@@ -67,36 +65,36 @@ document.addEventListener("DOMContentLoaded", function() {
     mostrarLogin();
 });
 
+// Evento para capturar Enter e submeter os formulários de Login e Cadastro
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        // Verifica se está no formulário de login
+        if (document.getElementById('formLogin').style.opacity == 1) {
+            document.getElementById('submit').click();
+        }
+        // Verifica se está no formulário de registro
+        else if (document.getElementById('formRegistro').style.opacity == 1) {
+            document.getElementById('submitCadastro').click();
+        }
+    }
+});
+
 // Função de submissão de registro
 document.getElementById('submitCadastro').addEventListener("click", function(event) {
     event.preventDefault();
 
     // Obter valores dos inputs
-    const nome = document.getElementById('nomeCadastro').value;  // Obter o nome do usuário
     const email = document.getElementById('emailCadastro').value;
     const password = document.getElementById('senhaCadastro').value;
 
     // Criar usuário com email e senha
     createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Usuário criado
-            const user = userCredential.user;
-
-            // Salvar o nome e email do usuário no Firestore
-            return setDoc(doc(db, "users", user.uid), {
-                nome: nome,
-                email: email
-            });
-        })
         .then(() => {
-            alert("Conta criada com sucesso!");
-            window.location.href = 'login.html';
+            mostrarLogin();  // Mostra o formulário de login após cadastro
         })
         .catch((error) => {
-            const errorCode = error.code;
             const errorMessage = error.message;
             alert("Erro: " + errorMessage);
-            console.error("Erro ao criar conta:", errorCode, errorMessage);
         });
 });
 
@@ -110,16 +108,12 @@ document.getElementById('submit').addEventListener("click", function(event) {
 
     // Fazer login com email e senha
     signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Login bem-sucedido
-            const user = userCredential.user;
+        .then(() => {
             window.location.href = '../../pdlogin.html'; // Redirecionar para a página inicial
         })
         .catch((error) => {
-            const errorCode = error.code;
             const errorMessage = error.message;
             alert("Erro: " + errorMessage);
-            console.error("Erro ao fazer login:", errorCode, errorMessage);
         });
 });
 
@@ -133,10 +127,8 @@ window.recuperarSenha = function() {
                 alert("Um e-mail de recuperação de senha foi enviado para " + email);
             })
             .catch((error) => {
-                const errorCode = error.code;
                 const errorMessage = error.message;
                 alert("Erro ao enviar e-mail de recuperação: " + errorMessage);
-                console.error("Erro ao enviar e-mail de recuperação:", errorCode, errorMessage);
             });
     } else {
         alert("Por favor, insira um endereço de e-mail válido.");
