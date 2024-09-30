@@ -31,31 +31,38 @@ document.getElementById('btnAtualizar').addEventListener("click", function() {
     const novoEmail = document.getElementById('novoEmail').value;
     const novaSenha = document.getElementById('novaSenha').value;
     const user = auth.currentUser;
+    const currentPassword = prompt("Por favor, digite sua senha atual para reautenticação:");
 
-    // Atualizar o email
-    if (novoEmail !== "" && novoEmail !== user.email) {
-        user.updateEmail(novoEmail).then(() => {
-            // Enviar email de verificação
-            user.sendEmailVerification().then(() => {
-                alert("Email de verificação enviado para o novo email. Por favor, verifique antes de continuar.");
-            }).catch((error) => {
-                alert("Erro ao enviar o email de verificação: " + error.message);
-            });
-        }).catch((error) => {
-            alert("Erro ao atualizar o email: " + error.message);
-        });
-    }
+    if (currentPassword) {
+        const credential = firebase.auth.EmailAuthProvider.credential(user.email, currentPassword);
 
-    // Atualizar a senha
-    if (novaSenha !== "") {
-        user.updatePassword(novaSenha).then(() => {
-            alert("Senha atualizada com sucesso!");
+        // Reautenticar o usuário com a senha atual
+        user.reauthenticateWithCredential(credential).then(() => {
+            // Atualizar o email
+            if (novoEmail !== "" && novoEmail !== user.email) {
+                user.updateEmail(novoEmail).then(() => {
+                    alert("Email atualizado com sucesso!");
+                    document.getElementById('emailAtual').value = novoEmail; // Atualiza o campo com o novo email
+                }).catch((error) => {
+                    alert("Erro ao atualizar o email: " + error.message);
+                });
+            }
+
+            // Atualizar a senha
+            if (novaSenha !== "") {
+                user.updatePassword(novaSenha).then(() => {
+                    alert("Senha atualizada com sucesso!");
+                }).catch((error) => {
+                    alert("Erro ao atualizar a senha: " + error.message);
+                });
+            }
         }).catch((error) => {
-            alert("Erro ao atualizar a senha: " + error.message);
+            alert("Erro na reautenticação: " + error.message);
         });
+    } else {
+        alert("Senha atual não fornecida. A atualização não pode ser realizada.");
     }
 });
-
 
 // Deletar a conta do usuário
 document.getElementById('btnDeletarConta').addEventListener("click", function() {
