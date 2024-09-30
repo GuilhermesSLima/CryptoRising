@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre nós</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Importação da fonte Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -23,26 +24,21 @@
     <link rel="icon" href="/src/images/header/LogoGuia.svg" type="image/png">
 </head>
 <body>
-    <header>
-        <input type="checkbox" name="" id="chk1">
-        <div class="logo">
-            <img src="/src/images/header/Logo.svg" alt="Logo">
-        </div>
-        <ul>
-            <li><a href="/index.html">Início</a></li>
-            <li><a href="/secundarias/login/login.html">Login</a></li>
-            <li>
-                <a href="#"><i class="fa fa-instagram"></i></a>
-                <a href="#"><i class="fa fa-whatsapp"></i></a>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=crypto.rising24@gmail.com" target="_blank"><i class="fa fa-envelope"></i></a>
-            </li>
-        </ul>
-        <div class="menu">
-            <label for="chk1">
-                <i class="fa fa-bars"></i>
-            </label>
-        </div>
-    </header>
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="nav-logo">
+                <img src="/src/images/header/Logo.svg" alt="Logo">
+            </div>
+            <div class="nav-menu" id="menuNavegacao">
+                <ul>
+                    <li><a href="/index.html" class="link">Início</a></li>
+                    <li><a href="/secundarias/login/login.html" class="link">Login</a></li>
+                </ul>
+            </div>
+            <div class="nav-menu-btn">
+                <i class="bi bi-list" id="menuIcon" onclick="alternarMenu()"></i>
+            </div>
+        </nav>
 
     <main>
         <!-- Primeira Seção 'Sobre nós' -->
@@ -107,6 +103,8 @@
                 </p>
             </div>
         </div>
+    </div>
+
     </main>
 
     <!-- ScrollReveal Configuração -->
