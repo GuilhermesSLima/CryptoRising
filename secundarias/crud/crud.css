@@ -61,37 +61,72 @@ body, html {
     align-items: center;
 }
 
-.form{
+.form {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
-#perfilUsuario{
+
+#perfilUsuario {
     background-color: aliceblue;
-    width: 400px;
-    padding: 40px;
+    width: 90%; /* Responsivo */
+    max-width: 400px; /* Limitar a largura máxima */
+    padding: 20px; /* Ajustado para responsividade */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.dois{
+
+.dois {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-#btnVoltar{
+#btnVoltar {
     flex: 0;
     width: 20px;
 }
-#editar{
+
+#editar {
     text-align: center;
     flex: 20;
 }
 
-.form input{
+.form input {
     padding: 10px;
-    margin: 10px;
+    margin: 10px 0;
     border: none;
+    width: 100%;
 }
-.botoes{
+
+.botoes {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+button {
+    flex: 1 1 100%;
+    max-width: 45%; /* Limitar a largura dos botões */
+    margin: 10px 5px;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    #perfilUsuario {
+        padding: 15px;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    .form input {
+        font-size: 1rem;
+    }
+
+    button {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
 }
