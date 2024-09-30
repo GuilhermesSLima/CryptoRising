@@ -1,6 +1,5 @@
-// window.onload = paprikaApi
+window.onload = paprikaApi;
 
-const apiKey = ''; // Chave da API
 const url = 'https://api.coinpaprika.com/v1/';
 let pAntes = window.scrollY;
 
@@ -17,39 +16,56 @@ window.onscroll = function () {
 };
 
 function paprikaApi() {
-    let urlFinal = url + 'coins/';
-    // const headers = {'Authorization': apiKey}
+    const urlFinal = url + 'coins/';
+    const cacheKey = 'cryptoData'; // Chave para armazenar dados no localStorage
+    const cacheExpiryKey = 'cryptoDataExpiry'; // Chave para armazenar o timestamp de expiração
 
-    fetch(urlFinal).then(response => response.json())
-    .then(data => {
-        const fetchPromises = data.slice(0, 5).map(coin => {
-            // Faz uma nova requisição para detalhes da moeda
-            return fetch(`${url}coins/${coin.id}`)
-                .then(response => response.json());
-        });
+    // Verifica se os dados estão no cache e se não expiraram
+    const cachedData = localStorage.getItem(cacheKey);
+    const cachedExpiry = localStorage.getItem(cacheExpiryKey);
+    const now = Date.now();
 
-        // Aguarda todas as requisições serem completadas
-        Promise.all(fetchPromises).then(detailsArray => {
-            // Ordena as moedas pelo rank (crescente)
-            detailsArray.sort((a, b) => a.rank - b.rank);
-            
-            const list = document.querySelector('.listcoin');
-            list.innerHTML = ''; // Limpa a lista
+    if (cachedData && cachedExpiry && now < cachedExpiry) {
+        // Dados válidos em cache
+        displayData(JSON.parse(cachedData));
+    } else {
+        // Faz a requisição à API
+        fetch(urlFinal)
+            .then(response => response.json())
+            .then(data => {
+                const fetchPromises = data.slice(0, 5).map(coin => {
+                    return fetch(`${url}coins/${coin.id}`)
+                        .then(response => response.json());
+                });
 
-            // Adiciona as moedas ordenadas à lista
-            detailsArray.forEach(details => {
-                const listItem = document.createElement('li');
-                listItem.className = 'moedas';
-                listItem.innerHTML = `
-                    <img src="${details.logo}" alt="${details.name} logo" style="width: 30px; height: 30px;">
-                    <strong>${details.rank} - ${details.name} (${details.symbol})</strong>
-                    <p>Última atualização: ${new Date(details.last_data_at).toLocaleString()}</p>
-                `;
-                list.appendChild(listItem);
-            });
-        }).catch(error => console.error('Erro ao carregar detalhes das moedas:', error));
-    })
-    .catch(error => console.error('Erro ao buscar dados:', error));
+                Promise.all(fetchPromises).then(detailsArray => {
+                    detailsArray.sort((a, b) => a.rank - b.rank);
+                    
+                    // Armazenar dados no localStorage
+                    localStorage.setItem(cacheKey, JSON.stringify(detailsArray));
+                    localStorage.setItem(cacheExpiryKey, now + 3600000); // Expira em 1 hora
+
+                    displayData(detailsArray);
+                }).catch(error => console.error('Erro ao carregar detalhes das moedas:', error));
+            })
+            .catch(error => console.error('Erro ao buscar dados:', error));
+    }
+}
+
+function displayData(detailsArray) {
+    const list = document.querySelector('.listcoin');
+    list.innerHTML = ''; // Limpa a lista
+
+    detailsArray.forEach(details => {
+        const listItem = document.createElement('li');
+        listItem.className = 'moedas';
+        listItem.innerHTML = `
+            <img src="${details.logo}" alt="${details.name} logo" style="width: 30px; height: 30px;">
+            <strong>${details.rank} - ${details.name} (${details.symbol})</strong>
+            <p>Última atualização: ${new Date(details.last_data_at).toLocaleString()}</p>
+        `;
+        list.appendChild(listItem);
+    });
 }
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
