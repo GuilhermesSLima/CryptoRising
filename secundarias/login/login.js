@@ -23,11 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Função para alternar o menu
     window.alternarMenu = function() {
         var menuNavegacao = document.getElementById("menuNavegacao");
-        if (menuNavegacao.classList.contains("nav-menu")) {
-            menuNavegacao.classList.add("responsive");
-        } else {
-            menuNavegacao.classList.remove("responsive");
-        }
+        menuNavegacao.classList.toggle("responsive");
     };
 
     // Função para mostrar o login
@@ -60,8 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
         formRegistro.style.opacity = 1;
     };
 
-    // Inicializar menu e mostrar login por padrão
-    alternarMenu();
+    // Inicializar o login por padrão
     mostrarLogin();
 });
 

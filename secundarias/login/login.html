@@ -16,7 +16,7 @@
  <div class="wrapper">
     <nav class="nav">
         <div class="nav-logo">
-            <img src="/src/images/header/Logo.svg" alt="">
+            <img src="/src/images/header/Logo.svg" alt="Logo">
         </div>
         <div class="nav-menu" id="menuNavegacao">
             <ul>
@@ -29,7 +29,7 @@
             <button class="btn" id="botaoRegistro" onclick="mostrarRegistro()">Registrar</button>
         </div>
         <div class="nav-menu-btn">
-            <i class="bi bi-list" onclick="alternarMenu()"></i>
+            <i class="bi bi-list" id="menuIcon" onclick="alternarMenu()"></i>
         </div>
     </nav>
 
@@ -57,16 +57,15 @@
             </div>
         </div>
 
-        <!------------------- Formulário de Registro -------------------------->
         <div class="register-container" id="formRegistro">
             <div class="top">
                 <span>Já tem uma conta? <a href="#" onclick="mostrarLogin()">Login</a></span>
                 <header>Cadastrar</header>
             </div>
-                <div class="input-box">
-                    <input type="text" class="input-field" placeholder="Nome" id="nomeCadastro">
-                    <i class="bi bi-person"></i>
-                </div>
+            <div class="input-box">
+                <input type="text" class="input-field" placeholder="Nome" id="nomeCadastro">
+                <i class="bi bi-person"></i>
+            </div>
             <div class="input-box">
                 <input type="text" class="input-field" id="emailCadastro" placeholder="Email">
                 <i class="bi bi-envelope"></i>
