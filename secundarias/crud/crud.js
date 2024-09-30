@@ -31,24 +31,36 @@ document.getElementById('btnAtualizar').addEventListener("click", function() {
     const novoEmail = document.getElementById('novoEmail').value;
     const novaSenha = document.getElementById('novaSenha').value;
     const user = auth.currentUser;
+    const currentPassword = prompt("Por favor, digite sua senha atual para reautenticação:");
 
-    // Atualizar o email
-    if (novoEmail !== "" && novoEmail !== user.email) {
-        user.updateEmail(novoEmail).then(() => {
-            alert("Email atualizado com sucesso!");
-            document.getElementById('emailAtual').value = novoEmail; // Atualiza o campo com o novo email
-        }).catch((error) => {
-            alert("Erro ao atualizar o email: " + error.message);
-        });
-    }
+    if (currentPassword) {
+        const credential = firebase.auth.EmailAuthProvider.credential(user.email, currentPassword);
 
-    // Atualizar a senha
-    if (novaSenha !== "") {
-        user.updatePassword(novaSenha).then(() => {
-            alert("Senha atualizada com sucesso!");
+        // Reautenticar o usuário com a senha atual
+        user.reauthenticateWithCredential(credential).then(() => {
+            // Atualizar o email
+            if (novoEmail !== "" && novoEmail !== user.email) {
+                user.updateEmail(novoEmail).then(() => {
+                    alert("Email atualizado com sucesso!");
+                    document.getElementById('emailAtual').value = novoEmail; // Atualiza o campo com o novo email
+                }).catch((error) => {
+                    alert("Erro ao atualizar o email: " + error.message);
+                });
+            }
+
+            // Atualizar a senha
+            if (novaSenha !== "") {
+                user.updatePassword(novaSenha).then(() => {
+                    alert("Senha atualizada com sucesso!");
+                }).catch((error) => {
+                    alert("Erro ao atualizar a senha: " + error.message);
+                });
+            }
         }).catch((error) => {
-            alert("Erro ao atualizar a senha: " + error.message);
+            alert("Erro na reautenticação: " + error.message);
         });
+    } else {
+        alert("Senha atual não fornecida. A atualização não pode ser realizada.");
     }
 });
 
@@ -68,12 +80,8 @@ document.getElementById('btnDeletarConta').addEventListener("click", function() 
         alert("Ação cancelada.");
     }
 });
-document.getElementById('btnLogout').addEventListener('click', function() {
-    auth.signOut().then(() => {
-        alert("Logout realizado com sucesso.");
-        window.location.href = '../login/login.html'; // Redireciona para a página de login
-    }).catch((error) => {
-        console.error("Erro ao fazer logout: ", error);
-        alert("Erro ao fazer logout: " + error.message);
-    });
+
+// Função para redirecionar para a página de login
+document.getElementById('btnVoltar').addEventListener('click', function() {
+    window.location.href = '../../pdlogin.html'; // Redirecionar para a página de login
 });

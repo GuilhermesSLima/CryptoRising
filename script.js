@@ -67,3 +67,28 @@ function displayData(detailsArray) {
         list.appendChild(listItem);
     });
 }
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+const auth = getAuth();
+const db = getFirestore();
+
+// Verificar se o usuário está autenticado
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        const userRef = doc(db, "users", user.uid);
+        getDoc(userRef).then((docSnap) => {
+            if (docSnap.exists()) {
+                const userData = docSnap.data();
+                document.getElementById('userName').innerText = userData.nome; // Exibir o nome do usuário
+            } else {
+                console.log("Nenhum dado de usuário encontrado!");
+            }
+        }).catch((error) => {
+            console.error("Erro ao buscar dados do usuário:", error);
+        });
+    } else {
+        // Usuário não está autenticado
+        window.location.href = 'login.html'; // Redirecionar para a página de login
+    }
+});

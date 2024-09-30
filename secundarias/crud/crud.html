@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
     <title>Perfil do Usuário</title>
     <style>
         /* Ocultar o conteúdo até que a autenticação seja verificada */
@@ -10,23 +12,30 @@
             display: none;
         }
     </style>
+    <link rel="stylesheet" href="crud.css">
 </head>
 <body>
     <!-- Estrutura da página com o perfil do usuário -->
     <div id="perfilUsuario">
-        <h2>Editar Perfil</h2>
-        <label for="emailAtual">Email Atual:</label>
-        <input type="text" id="emailAtual" disabled>
-        
-        <label for="novoEmail">Novo Email:</label>
-        <input type="text" id="novoEmail" placeholder="Digite seu novo email">
+        <div class="dois">
+            <button id="btnVoltar"><i class="bi bi-arrow-left"></i></button>
+            <h2 id="editar">Editar Perfil</h2>
+        </div>
+        <div class="form">
+            <label for="emailAtual">Email Atual:</label>
+            <input type="text" id="emailAtual" disabled>
+            
+            <label for="novoEmail">Novo Email:</label>
+            <input type="text" id="novoEmail" placeholder="Digite seu novo email">
 
-        <label for="novaSenha">Nova Senha:</label>
-        <input type="password" id="novaSenha" placeholder="Digite sua nova senha">
-
-        <button id="btnAtualizar">Atualizar Informações</button>
-        <button id="btnDeletarConta">Deletar Conta</button>
-        <button id="btnLogout">Sair</button>
+            <label for="novaSenha">Nova Senha:</label>
+            <input type="password" id="novaSenha" placeholder="Digite sua nova senha">
+        </div>
+        <div class="botoes">
+            <button id="btnAtualizar">Atualizar</button>
+            <button id="btnDeletarConta">Deletar conta</button>
+            <button id="btnLogout">Sair</button>
+        </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
