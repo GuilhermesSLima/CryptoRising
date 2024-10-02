@@ -1,5 +1,5 @@
-window.onload = paprikaApi;
-
+/* window.onload = paprikaApi;
+ */
 const url = 'https://api.coinpaprika.com/v1/';
 let pAntes = window.scrollY;
 
@@ -89,6 +89,6 @@ onAuthStateChanged(auth, (user) => {
         });
     } else {
         // Usuário não está autenticado
-        window.location.href = 'login.html'; // Redirecionar para a página de login
+        window.location.href = '../login/login.html'; // Redirecionar para a página de login
     }
 });
