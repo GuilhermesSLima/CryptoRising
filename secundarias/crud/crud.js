@@ -1,5 +1,5 @@
 // Configuração do Firebase
-const firebaseConfig = {
+var firebaseConfig = {
     apiKey: "AIzaSyA2NiyJpxz9SJQb5sO6cIns7bsk_7JJQ2s",
     authDomain: "cryptorisinge.firebaseapp.com",
     projectId: "cryptorisinge",
@@ -11,92 +11,197 @@ const firebaseConfig = {
 
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
+var auth = firebase.auth();
+var storage = firebase.storage();
+
+// Armazena as criptomoedas do usuário na memória
+let userCryptos = [];
 
 // Verificar o estado de autenticação do usuário
-auth.onAuthStateChanged((user) => {
+auth.onAuthStateChanged(function(user) {
     if (user) {
-        // Usuário autenticado - mostrar a página de perfil
         document.getElementById("perfilUsuario").style.display = "block";
-        document.getElementById('emailAtual').value = user.email; // Preencher o campo de email com o email do usuário
+        document.getElementById('emailAtual').value = user.email;
+
+        if (user.photoURL) {
+            document.getElementById('profilePic').src = user.photoURL;
+        } else {
+            document.getElementById('profilePic').src = '/src/images/user-black.png'; // Defina o caminho da imagem padrão
+        }
     } else {
-        // Se o usuário não estiver logado, redirecionar para a página de login
         alert("Você precisa estar logado para acessar essa página.");
-        window.location.href = '../login/login.html'; // Redirecionar para a página de login
+        window.location.href = '../login/login.html';
     }
 });
-// Atualizar email e senha do usuário
-document.getElementById('btnAtualizar').addEventListener("click", function() {
-    const novoEmail = document.getElementById('novoEmail').value;
-    const novaSenha = document.getElementById('novaSenha').value;
-    const user = auth.currentUser;
-    const currentPassword = prompt("Por favor, digite sua senha atual para reautenticação:");
 
-    if (currentPassword) {
-        const credential = firebase.auth.EmailAuthProvider.credential(user.email, currentPassword);
+// Função para buscar criptomoeda na API CoinPaprika pelo nome
+document.getElementById('btnSearch').addEventListener('click', function() {
+    const searchCrypto = document.getElementById('searchCrypto').value.trim();
 
-        // Reautenticar o usuário com a senha atual
-        user.reauthenticateWithCredential(credential).then(() => {
-            // Verificar se o email atual está verificado
-            if (user.emailVerified) {
-                // Verificar se o novo email é válido e diferente do atual
-                if (novoEmail !== "" && novoEmail !== user.email) {
-                    // Tentar atualizar o email
-                    user.updateEmail(novoEmail).then(() => {
-                        // Após a atualização do email, enviar email de verificação
-                        user.sendEmailVerification().then(() => {
-                            alert("Email de verificação enviado para o novo email. Verifique sua caixa de entrada.");
-                            document.getElementById('emailAtual').value = novoEmail; // Atualiza o campo com o novo email
-                        }).catch((error) => {
-                            alert("Erro ao enviar o email de verificação: " + error.message);
-                        });
-                    }).catch((error) => {
-                        if (error.code === 'auth/email-already-in-use') {
-                            alert("O email inserido já está em uso por outra conta.");
-                        } else if (error.code === 'auth/invalid-email') {
-                            alert("O email inserido é inválido.");
+    // Primeiro, buscar a lista de todas as moedas
+    fetch(`https://api.coinpaprika.com/v1/coins`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erro ao buscar a lista de criptomoedas.");
+            }
+            return response.json();
+        })
+        .then(coins => {
+            // Filtrar a moeda pelo nome
+            const filteredCoin = coins.find(coin => coin.name.toLowerCase() === searchCrypto.toLowerCase() || coin.symbol.toLowerCase() === searchCrypto.toLowerCase());
+
+            if (filteredCoin) {
+                console.log("Moeda encontrada:", filteredCoin); // Debug: moeda encontrada
+
+                // Buscar o preço da moeda usando o endpoint de preços
+                return fetch(`https://api.coinpaprika.com/v1/tickers/${filteredCoin.id}`);
+            } else {
+                throw new Error("Criptomoeda não encontrada.");
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Detalhes da criptomoeda não encontrados.");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Detalhes da criptomoeda:", data); // Debug: detalhes da criptomoeda
+
+            // Verifica se 'quotes' e 'USD' estão definidos
+            if (data.quotes && data.quotes.USD) {
+                // Buscar a imagem da moeda
+                return fetch(`https://api.coinpaprika.com/v1/coins/${data.id}`)
+                    .then(response => response.json())
+                    .then(coinData => {
+                        const cryptoData = {
+                            id: data.id,
+                            name: data.name,
+                            price: data.quotes.USD.price, // Acesso correto ao preço
+                            image: coinData.logo || 'default-image-url', // Usar a logo da moeda ou uma imagem padrão
+                        };
+
+                        console.log("Informações da criptomoeda:", cryptoData); // Exibe informações da moeda
+
+                        const quantity = prompt('Quantos dessa moeda você tem?');
+                        if (quantity && !isNaN(quantity)) {
+                            cryptoData.quantity = parseInt(quantity);
+                            userCryptos.push(cryptoData); // Adiciona a moeda ao array de criptomoedas
+                            displayCryptos(); // Atualiza a exibição
                         } else {
-                            alert("Erro ao atualizar o email: " + error.message);
+                            alert("Por favor, insira uma quantidade válida.");
                         }
                     });
-                }
             } else {
-                alert("O email atual precisa ser verificado antes de alterá-lo.");
+                throw new Error("Dados de preço da criptomoeda não encontrados.");
             }
-
-            // Atualizar a senha
-            if (novaSenha !== "") {
-                user.updatePassword(novaSenha).then(() => {
-                    alert("Senha atualizada com sucesso!");
-                }).catch((error) => {
-                    alert("Erro ao atualizar a senha: " + error.message);
-                });
-            }
-        }).catch((error) => {
-            if (error.code === 'auth/wrong-password') {
-                alert("Senha incorreta. Tente novamente.");
-            } else {
-                alert("Erro na reautenticação: " + error.message);
-            }
+        })
+        .catch(error => {
+            alert(error.message);
         });
+});
+
+// Função para exibir as criptomoedas
+function displayCryptos() {
+    const cryptoList = document.getElementById('cryptoList');
+    cryptoList.innerHTML = ''; // Limpa a lista antes de exibir
+
+    userCryptos.forEach((crypto, index) => {
+        const cryptoItem = document.createElement('div');
+        cryptoItem.className = 'cryptoItem';
+        cryptoItem.innerHTML = `
+            <img src="${crypto.image}" alt="${crypto.name}">
+            <div>
+                <strong>${crypto.name}</strong> - R$ ${(crypto.price * crypto.quantity).toFixed(2)} <br>
+                <span>(Qnt: ${crypto.quantity})</span>
+            </div>
+            <div class="btn-group-vertical"> <!-- Agrupar botões em coluna -->
+                <button onclick="updateQuantity(${index})" class="btn btn-link btn-sm">
+                    <i class="bi bi-pencil"></i> <!-- Ícone de edição -->
+                </button>
+                <button onclick="deleteCrypto(${index})" class="btn btn-trash btn-sm">
+                    <i class="bi bi-trash"></i> <!-- Ícone de lixeira -->
+                </button>
+            </div>
+        `;
+        cryptoList.appendChild(cryptoItem);
+    });
+}
+
+// Função para atualizar a quantidade da criptomoeda
+function updateQuantity(index) {
+    const newQuantity = prompt("Insira a nova quantidade para " + userCryptos[index].name + ":");
+
+    if (newQuantity && !isNaN(newQuantity)) {
+        userCryptos[index].quantity = parseInt(newQuantity); // Atualiza a quantidade
+        displayCryptos(); // Atualiza a exibição
     } else {
-        alert("Senha atual não fornecida. A atualização não pode ser realizada.");
+        alert("Por favor, insira uma quantidade válida.");
+    }
+}
+
+// Função para deletar criptomoeda
+function deleteCrypto(index) {
+    userCryptos.splice(index, 1); // Remove a moeda do array
+    displayCryptos(); // Atualiza a exibição
+}
+
+// Função para fazer upload da foto de perfil e atualizar no Firebase
+var fileInput = document.getElementById('fileInput');
+fileInput.addEventListener('change', function(event) {
+    var file = event.target.files[0];
+
+    if (auth.currentUser) {
+        var userId = auth.currentUser.uid;
+        var storageRef = storage.ref('profilePictures/' + userId + '.jpg');
+
+        storageRef.put(file).then(function() {
+            storageRef.getDownloadURL().then(function(url) {
+                auth.currentUser.updateProfile({
+                    photoURL: url
+                }).then(function() {
+                    document.getElementById('profilePic').src = url;
+                    alert("Foto de perfil atualizada com sucesso!");
+                }).catch(function(error) {
+                    alert("Erro ao atualizar o perfil: " + error.message);
+                });
+            });
+        }).catch(function(error) {
+            alert("Erro ao enviar a foto: " + error.message);
+        });
     }
 });
 
-// Função para logout do usuário
-document.getElementById('btnLogout').addEventListener("click", function() {
-    auth.signOut().then(() => {
-        // Redirecionar para a página de login ou outra página após o logout
+// Função para alterar a senha do usuário
+document.getElementById('btnAtualizar').addEventListener('click', function() {
+    var novaSenha = document.getElementById('novaSenha').value;
+    var user = auth.currentUser;
+
+    if (novaSenha) {
+        // Atualizar a senha do usuário
+        user.updatePassword(novaSenha).then(function() {
+            alert("Senha atualizada com sucesso!");
+            // Limpar o campo de nova senha após a atualização
+            document.getElementById('novaSenha').value = '';
+        }).catch(function(error) {
+            alert("Erro ao atualizar a senha: " + error.message);
+        });
+    } else {
+        alert("Por favor, insira uma nova senha.");
+    }
+});
+
+// Função de logout do usuário
+document.getElementById('btnLogout').addEventListener('click', function() {
+    auth.signOut().then(function() {
         alert("Logout realizado com sucesso.");
-        window.location.href = '../login/login.html'; // Redireciona para a página de login
-    }).catch((error) => {
+        window.location.href = '../login/login.html';
+    }).catch(function(error) {
         alert("Erro ao realizar logout: " + error.message);
     });
 });
 
-
-// Função para redirecionar para a página de login
+// Função para redirecionar
 document.getElementById('btnVoltar').addEventListener('click', function() {
-    window.location.href = '../../pdlogin.html'; // Redirecionar para a página de login
+    window.location.href = '../../pdlogin.html';
 });
