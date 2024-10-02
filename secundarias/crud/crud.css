@@ -2,10 +2,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -54,7 +54,8 @@ button:hover {
 }
 
 /* Centralizar o conteúdo */
-body, html {
+body,
+html {
     height: 100%;
     display: flex;
     justify-content: center;
@@ -69,9 +70,12 @@ body, html {
 
 #perfilUsuario {
     background-color: aliceblue;
-    width: 90%; /* Responsivo */
-    max-width: 400px; /* Limitar a largura máxima */
-    padding: 20px; /* Ajustado para responsividade */
+    width: 90%;
+    /* Responsivo */
+    max-width: 400px;
+    /* Limitar a largura máxima */
+    padding: 20px;
+    /* Ajustado para responsividade */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -107,17 +111,20 @@ body, html {
 
 button {
     flex: 1 1 100%;
-    max-width: 45%; /* Limitar a largura dos botões */
+    max-width: 45%;
+    /* Limitar a largura dos botões */
     margin: 10px 5px;
 }
 
 #cryptoContainer {
-    background-color: #e8f0fe;
+    background-color: aliceblue;
     border-radius: 10px;
     padding: 20px;
     margin-left: 20px;
-    width: 90%; /* Responsivo */
-    max-width: 400px; /* Limitar a largura máxima */
+    width: 90%;
+    /* Responsivo */
+    max-width: 400px;
+    /* Limitar a largura máxima */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -166,35 +173,61 @@ button {
 }
 
 
-        /* Estilo para deixar a foto de perfil com borda arredondada */
-        #profilePic {
-            width: 150px; /* Definir o tamanho da imagem */
-            height: 150px;
-            border-radius: 50%; /* Faz a imagem ficar circular */
-            object-fit: cover; /* Garante que a imagem ocupe todo o espaço sem distorcer */
-            border: 3px solid #ccc; /* Adiciona uma borda fina */
-        }
+/* Estilo para deixar a foto de perfil com borda arredondada */
+#profilePic {
+    width: 150px;
+    /* Definir o tamanho da imagem */
+    height: 150px;
+    border-radius: 50%;
+    /* Faz a imagem ficar circular */
+    object-fit: cover;
+    /* Garante que a imagem ocupe todo o espaço sem distorcer */
+    border: 3px solid #333;
+    /* Adiciona uma borda fina */
+}
 
-        .btn-trash {
-            font-size: 0.8rem; /* Tamanho da fonte menor */
-            padding: 0.2rem 0.4rem; /* Ajustar o padding para um botão menor */
-            border: none; /* Remove a borda padrão */
-            background-color: #333; /* Torna o fundo transparente */
-            width: 45px;
-            height: 40px;
-        }
-        
+.btn-trash {
+    font-size: 0.8rem;
+    /* Tamanho da fonte menor */
+    padding: 0.2rem 0.4rem;
+    /* Ajustar o padding para um botão menor */
+    border: none;
+    /* Remove a borda padrão */
+    background-color: #333;
+    /* Torna o fundo transparente */
+    width: 45px;
+    height: 40px;
+}
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    background-color: #333;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.custom-file-upload:hover {
+    background-color: #555454;
+}
+
+.custom-file-upload input[type="file"] {
+    display: none; /* Oculta o input padrão */
+}
+
 
 /* Responsividade */
 @media (max-width: 600px) {
     #perfilUsuario {
         padding: 15px;
     }
-    
+
     h2 {
         font-size: 1.5rem;
     }
-    
+
     .form input {
         font-size: 1rem;
     }

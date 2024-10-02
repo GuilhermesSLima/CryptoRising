@@ -12,7 +12,8 @@ var firebaseConfig = {
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
 var auth = firebase.auth();
-var storage = firebase.storage();
+var database = firebase.database(); // Adiciona o Realtime Database
+var storage = firebase.storage(); // Adiciona o Firebase Storage
 
 // Armazena as criptomoedas do usuário na memória
 let userCryptos = [];
@@ -26,101 +27,100 @@ auth.onAuthStateChanged(function(user) {
         if (user.photoURL) {
             document.getElementById('profilePic').src = user.photoURL;
         } else {
-            document.getElementById('profilePic').src = '/src/images/user-black.png'; // Defina o caminho da imagem padrão
+            document.getElementById('profilePic').src = '/src/images/user-black.png'; // Imagem padrão
         }
+
+        // Carregar as criptomoedas do usuário no Firebase
+        loadUserCryptos(user.uid);
     } else {
         alert("Você precisa estar logado para acessar essa página.");
         window.location.href = '../login/login.html';
     }
 });
 
-// Função para buscar criptomoeda na API CoinPaprika pelo nome
+// Função para carregar as criptomoedas do usuário
+function loadUserCryptos(userId) {
+    database.ref('users/' + userId + '/cryptos').once('value')
+        .then(snapshot => {
+            const cryptos = snapshot.val();
+            if (cryptos) {
+                userCryptos = cryptos;
+                displayCryptos();
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao carregar criptomoedas: ', error);
+        });
+}
+
+// Função para buscar criptomoeda na API CoinPaprika
 document.getElementById('btnSearch').addEventListener('click', function() {
     const searchCrypto = document.getElementById('searchCrypto').value.trim();
 
-    // Primeiro, buscar a lista de todas as moedas
     fetch(`https://api.coinpaprika.com/v1/coins`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Erro ao buscar a lista de criptomoedas.");
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(coins => {
-            // Filtrar a moeda pelo nome
             const filteredCoin = coins.find(coin => coin.name.toLowerCase() === searchCrypto.toLowerCase() || coin.symbol.toLowerCase() === searchCrypto.toLowerCase());
-
             if (filteredCoin) {
-                console.log("Moeda encontrada:", filteredCoin); // Debug: moeda encontrada
-
-                // Buscar o preço da moeda usando o endpoint de preços
-                return fetch(`https://api.coinpaprika.com/v1/tickers/${filteredCoin.id}`);
+                // Buscar informações detalhadas, incluindo o logo da criptomoeda
+                return fetch(`https://api.coinpaprika.com/v1/coins/${filteredCoin.id}`);
             } else {
                 throw new Error("Criptomoeda não encontrada.");
             }
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Detalhes da criptomoeda não encontrados.");
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Detalhes da criptomoeda:", data); // Debug: detalhes da criptomoeda
-
-            // Verifica se 'quotes' e 'USD' estão definidos
-            if (data.quotes && data.quotes.USD) {
-                // Buscar a imagem da moeda
-                return fetch(`https://api.coinpaprika.com/v1/coins/${data.id}`)
-                    .then(response => response.json())
-                    .then(coinData => {
+        .then(response => response.json())
+        .then(coinDetails => {
+            // Usar o ID da criptomoeda para buscar dados de preço
+            return fetch(`https://api.coinpaprika.com/v1/tickers/${coinDetails.id}`)
+                .then(response => response.json())
+                .then(tickerData => {
+                    if (tickerData.quotes && tickerData.quotes.USD) {
                         const cryptoData = {
-                            id: data.id,
-                            name: data.name,
-                            price: data.quotes.USD.price, // Acesso correto ao preço
-                            image: coinData.logo || 'default-image-url', // Usar a logo da moeda ou uma imagem padrão
+                            id: tickerData.id,
+                            name: coinDetails.name,
+                            price: tickerData.quotes.USD.price,
+                            image: coinDetails.logo ? coinDetails.logo : 'default-image-url', // Usar logo da CoinPaprika ou uma imagem padrão
                         };
-
-                        console.log("Informações da criptomoeda:", cryptoData); // Exibe informações da moeda
 
                         const quantity = prompt('Quantos dessa moeda você tem?');
                         if (quantity && !isNaN(quantity)) {
-                            cryptoData.quantity = parseInt(quantity);
-                            userCryptos.push(cryptoData); // Adiciona a moeda ao array de criptomoedas
-                            displayCryptos(); // Atualiza a exibição
+                            cryptoData.quantity = parseFloat(quantity);
+                            userCryptos.push(cryptoData);
+                            displayCryptos();
+                            saveCryptosToFirebase(); // Salvar no Firebase
                         } else {
                             alert("Por favor, insira uma quantidade válida.");
                         }
-                    });
-            } else {
-                throw new Error("Dados de preço da criptomoeda não encontrados.");
-            }
+                    } else {
+                        throw new Error("Dados de preço da criptomoeda não encontrados.");
+                    }
+                });
         })
-        .catch(error => {
-            alert(error.message);
-        });
+        .catch(error => alert(error.message));
 });
 
-// Função para exibir as criptomoedas
+
+// Função para exibir criptomoedas
 function displayCryptos() {
     const cryptoList = document.getElementById('cryptoList');
-    cryptoList.innerHTML = ''; // Limpa a lista antes de exibir
+    cryptoList.innerHTML = '';
 
     userCryptos.forEach((crypto, index) => {
         const cryptoItem = document.createElement('div');
         cryptoItem.className = 'cryptoItem';
+        const totalValue = (crypto.price * crypto.quantity).toFixed(2); // Cálculo total
         cryptoItem.innerHTML = `
             <img src="${crypto.image}" alt="${crypto.name}">
             <div>
-                <strong>${crypto.name}</strong> - R$ ${(crypto.price * crypto.quantity).toFixed(2)} <br>
+                <strong>${crypto.name}</strong> - R$ ${totalValue} <br>
                 <span>(Qnt: ${crypto.quantity})</span>
             </div>
-            <div class="btn-group-vertical"> <!-- Agrupar botões em coluna -->
+            <div class="btn-group-vertical">
                 <button onclick="updateQuantity(${index})" class="btn btn-link btn-sm">
-                    <i class="bi bi-pencil"></i> <!-- Ícone de edição -->
+                    <i class="bi bi-pencil"></i>
                 </button>
                 <button onclick="deleteCrypto(${index})" class="btn btn-trash btn-sm">
-                    <i class="bi bi-trash"></i> <!-- Ícone de lixeira -->
+                    <i class="bi bi-trash"></i>
                 </button>
             </div>
         `;
@@ -128,13 +128,13 @@ function displayCryptos() {
     });
 }
 
-// Função para atualizar a quantidade da criptomoeda
+// Função para atualizar a quantidade
 function updateQuantity(index) {
     const newQuantity = prompt("Insira a nova quantidade para " + userCryptos[index].name + ":");
-
     if (newQuantity && !isNaN(newQuantity)) {
-        userCryptos[index].quantity = parseInt(newQuantity); // Atualiza a quantidade
-        displayCryptos(); // Atualiza a exibição
+        userCryptos[index].quantity = parseFloat(newQuantity);
+        displayCryptos();
+        saveCryptosToFirebase(); // Salvar no Firebase
     } else {
         alert("Por favor, insira uma quantidade válida.");
     }
@@ -142,8 +142,17 @@ function updateQuantity(index) {
 
 // Função para deletar criptomoeda
 function deleteCrypto(index) {
-    userCryptos.splice(index, 1); // Remove a moeda do array
-    displayCryptos(); // Atualiza a exibição
+    userCryptos.splice(index, 1);
+    displayCryptos();
+    saveCryptosToFirebase(); // Salvar no Firebase
+}
+
+// Função para salvar criptomoedas no Firebase
+function saveCryptosToFirebase() {
+    const userId = auth.currentUser.uid;
+    database.ref('users/' + userId + '/cryptos').set(userCryptos)
+        .then(() => console.log('Criptomoedas salvas com sucesso!'))
+        .catch(error => console.error('Erro ao salvar as criptomoedas: ', error));
 }
 
 // Função para fazer upload da foto de perfil e atualizar no Firebase
@@ -191,7 +200,21 @@ document.getElementById('btnAtualizar').addEventListener('click', function() {
     }
 });
 
-// Função de logout do usuário
+// Função para deletar a conta do usuário
+document.getElementById('btnDeletarConta').addEventListener('click', function() {
+    var user = auth.currentUser;
+
+    if (confirm("Você tem certeza que deseja deletar sua conta? Esta ação não pode ser desfeita.")) {
+        user.delete().then(function() {
+            alert("Conta deletada com sucesso!");
+            window.location.href = '../login/login.html';
+        }).catch(function(error) {
+            alert("Erro ao deletar a conta: " + error.message);
+        });
+    }
+});
+
+// Logout
 document.getElementById('btnLogout').addEventListener('click', function() {
     auth.signOut().then(function() {
         alert("Logout realizado com sucesso.");

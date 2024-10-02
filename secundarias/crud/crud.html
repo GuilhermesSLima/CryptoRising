@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
     <title>Perfil do Usuário</title>
     <link rel="stylesheet" href="crud.css">
     <style>
@@ -15,8 +13,8 @@
             border-radius: 10px;
             padding: 20px;
             margin-left: 20px;
-            width: 90%; /* Responsivo */
-            max-width: 400px; /* Limitar a largura máxima */
+            width: 90%;
+            max-width: 400px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
@@ -71,8 +69,12 @@
             <button id="btnVoltar"><i class="bi bi-arrow-left"></i></button>
             <h2 id="editar">Editar Perfil</h2>
         </div>
-        <input type="file" id="fileInput" accept="image/*" />
         <img id="profilePic" src="" alt="Foto de perfil do usuário" />
+        <label class="custom-file-upload">
+            <input type="file" id="fileInput" accept="image/*" />
+            Selecionar Imagem
+        </label>
+        
         <div class="form">
             <label for="emailAtual">Email Atual:</label>
             <input type="text" id="emailAtual" disabled>
@@ -96,9 +98,11 @@
         <div id="cryptoList"></div>
     </div>
 
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="crud.js" defer></script>
 </body>
 </html>
