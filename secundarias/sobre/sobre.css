@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-* {  
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -9,29 +9,34 @@
 
 main {
     height: 100vh;
-    padding-top: 130px; 
+    padding-top: 130px;
 }
 
-@media only screen and (max-width: 786px){
-    .nav-button{
-        display: none; /* Esconde botões de login e registro em telas pequenas */
+@media only screen and (max-width: 786px) {
+    .nav-button {
+        display: none;
+        /* Esconde botões de login e registro em telas pequenas */
     }
-    
+
     .nav-menu {
         position: absolute;
-        top: 100px; /* Abaixo da navbar */
-        right: -100%; /* Inicialmente fora da tela */
+        top: 100px;
+        /* Abaixo da navbar */
+        right: -100%;
+        /* Inicialmente fora da tela */
         display: flex;
         justify-content: center;
         background: rgba(255, 255, 255, 0.2);
         width: 100%;
         height: 90vh;
         backdrop-filter: blur(20px);
-        transition: right 0.3s ease; /* Transição suave */
+        transition: right 0.3s ease;
+        /* Transição suave */
     }
 
     .nav-menu.responsive {
-        right: 0; /* Quando 'responsive' é adicionado, traz o menu para a tela */
+        right: 0;
+        /* Quando 'responsive' é adicionado, traz o menu para a tela */
     }
 
     .nav-menu ul {
@@ -40,7 +45,8 @@ main {
     }
 
     .nav-menu-btn {
-        display: block; /* Exibe o ícone do menu sanduíche em telas pequenas */
+        display: block;
+        /* Exibe o ícone do menu sanduíche em telas pequenas */
     }
 
     .nav-menu-btn i {
@@ -116,7 +122,8 @@ i {
     border: none;
     font-family: monospace;
     font-weight: bold;
-    margin: 0 5px; /* Adiciona espaçamento entre os botões */
+    margin: 0 5px;
+    /* Adiciona espaçamento entre os botões */
 }
 
 .slider .dots {
@@ -165,7 +172,8 @@ i {
     margin: 100px;
 }
 
-.inner-section, .inner-section-2 {
+.inner-section,
+.inner-section-2 {
     width: 55%;
     float: right;
     background-color: #fdfdfd;
@@ -179,7 +187,7 @@ i {
 }
 
 .text {
-    font-size: 13px;
+    font-size: 16px;
     color: #545454;
     line-height: 30px;
     text-align: justify;
@@ -264,7 +272,7 @@ i {
         text-align: center;
     }
 
-    #chk1:checked ~ ul {
+    #chk1:checked~ul {
         right: 0;
     }
 }
@@ -337,7 +345,8 @@ i {
     margin: 0 25px;
 }
 
-.link:hover, .active {
+.link:hover,
+.active {
     border-bottom: 2px solid #fff;
 }
 
@@ -369,7 +378,8 @@ i {
 }
 
 .nav-menu-btn {
-    display: none; /* Ocultar botão em telas grandes */
+    display: none;
+    /* Ocultar botão em telas grandes */
 }
 
 .form-box {
@@ -383,7 +393,8 @@ i {
     z-index: 2;
 }
 
-.login-container, .register-container {
+.login-container,
+.register-container {
     position: absolute;
     width: 500px;
     display: flex;
@@ -392,11 +403,13 @@ i {
 }
 
 .login-container {
-    left: 4px; /* Ajuste para o login */
+    left: 4px;
+    /* Ajuste para o login */
 }
 
 .register-container {
-    right: -520px; /* Ajuste para o registro */
+    right: -520px;
+    /* Ajuste para o registro */
 }
 
 .top span {
@@ -438,7 +451,8 @@ header {
     transition: .2s ease;
 }
 
-.input-field:hover, .input-field:focus {
+.input-field:hover,
+.input-field:focus {
     background: rgba(255, 255, 255, 0.25);
 }
 
@@ -516,23 +530,27 @@ header {
 /* Responsividade */
 @media only screen and (max-width: 786px) {
     .nav-button {
-        display: none; /* Esconde os botões de login e registro em telas pequenas */
+        display: none;
+        /* Esconde os botões de login e registro em telas pequenas */
     }
 
     .nav-menu {
         position: absolute;
-        top: -1000px; /* Inicialmente fora da tela */
+        top: -1000px;
+        /* Inicialmente fora da tela */
         display: flex;
         justify-content: center;
         background: rgba(255, 255, 255, 0.2);
         width: 100%;
         height: 90vh;
         backdrop-filter: blur(20px);
-        transition: top 0.3s; /* Transição suave */
+        transition: top 0.3s;
+        /* Transição suave */
     }
 
     .nav-menu.responsive {
-        top: 100px; /* Posiciona abaixo da navbar */
+        top: 100px;
+        /* Posiciona abaixo da navbar */
     }
 
     .nav-menu ul {
@@ -540,8 +558,14 @@ header {
         text-align: center;
     }
 
+    .nav-menu ul li .link {
+        color: #000;
+    }
+
+
     .nav-menu-btn {
-        display: block; /* Exibe o botão do menu sanduíche */
+        display: block;
+        /* Exibe o botão do menu sanduíche */
     }
 
     .nav-menu-btn i {
@@ -569,7 +593,8 @@ header {
         height: 500px;
     }
 
-    .register-container, .login-container {
+    .register-container,
+    .login-container {
         width: 100%;
         padding: 0 20px;
     }
@@ -577,5 +602,54 @@ header {
     .register-container .two-forms {
         flex-direction: column;
         gap: 0;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .wrapper {
+        padding: 10px;
+        /* Reduz o padding da wrapper */
+    }
+
+    .inner-section {
+        padding: 10px;
+        /* Reduz ainda mais o padding */
+        text-align: center;
+        /* Garante centralização */
+    }
+
+    .text {
+        font-size: 12px;
+        /* Ajusta o tamanho da fonte */
+        line-height: 18px;
+        /* Ajusta o espaçamento entre linhas */
+        text-align: center;
+        /* Centraliza o texto */
+    }
+
+    .skills button {
+        font-size: 14px;
+        /* Ajusta o tamanho do botão */
+        padding: 5px;
+        /* Ajusta o padding */
+        width: 100%;
+        /* Garante que o botão ocupe toda a largura */
+    }
+
+    header {
+        font-size: 20px;
+        /* Ajusta o tamanho do cabeçalho */
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        /* Coloca os itens em coluna */
+        align-items: center;
+        /* Centraliza os itens */
+    }
+
+    .nav-menu ul li {
+        padding: 5px 0;
+        /* Ajusta o padding dos itens do menu */
     }
 }

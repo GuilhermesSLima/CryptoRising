@@ -1,19 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // header
     let pAntes = window.scrollY;
 
     window.onscroll = function() {
         let pDepois = window.scrollY;
-        let navbar = document.querySelector("header");
+        let navbar = document.querySelector("nav");
 
-        if (pAntes > pDepois) {
-            navbar.style.top = "0";
-        } else {
-            navbar.style.top = "-100px"; 
+        if (navbar) {
+            if (pAntes > pDepois) {
+                navbar.style.top = "0";
+            } else {
+                navbar.style.top = "-100px"; 
+            }
+            pAntes = pDepois;
         }
-        pAntes = pDepois;
     };
-    // 
+
+    window.alternarMenu = function() {
+        var menuNavegacao = document.getElementById("menuNavegacao");
+        menuNavegacao.classList.toggle("responsive");
+    };
 
     let deslizador = document.querySelector('.slider .list');
     let itens = document.querySelectorAll('.slider .list .item');
@@ -32,12 +37,12 @@ document.addEventListener('DOMContentLoaded', function() {
     proximo.onclick = function() {
         ativo = ativo + 1 <= totalItens ? ativo + 1 : 0;
         recarregarDeslizador();
-    }
+    };
 
     anterior.onclick = function() {
         ativo = ativo - 1 >= 0 ? ativo - 1 : totalItens;
         recarregarDeslizador();
-    }
+    };
 
     let intervaloAtualizacao = setInterval(() => { proximo.click() }, 3000);
 
@@ -58,8 +63,8 @@ document.addEventListener('DOMContentLoaded', function() {
         li.addEventListener('click', () => {
             ativo = chave;
             recarregarDeslizador();
-        })
-    })
+        });
+    });
 
     window.onresize = function() {
         recarregarDeslizador();
