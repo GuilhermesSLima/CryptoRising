@@ -13,6 +13,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var auth = firebase.auth();
 var database = firebase.database(); // Adiciona o Realtime Database
+var storage = firebase.storage(); // Adiciona o Firebase Storage
 
 // Armazena as criptomoedas do usuário na memória
 let userCryptos = [];
@@ -30,23 +31,27 @@ auth.onAuthStateChanged(function(user) {
         }
 
         // Carregar as criptomoedas do usuário no Firebase
-        const userId = user.uid;
-        database.ref('users/' + userId + '/cryptos').once('value')
-            .then(snapshot => {
-                const cryptos = snapshot.val();
-                if (cryptos) {
-                    userCryptos = cryptos;
-                    displayCryptos();
-                }
-            })
-            .catch(error => {
-                console.error('Erro ao carregar criptomoedas: ', error);
-            });
+        loadUserCryptos(user.uid);
     } else {
         alert("Você precisa estar logado para acessar essa página.");
         window.location.href = '../login/login.html';
     }
 });
+
+// Função para carregar as criptomoedas do usuário
+function loadUserCryptos(userId) {
+    database.ref('users/' + userId + '/cryptos').once('value')
+        .then(snapshot => {
+            const cryptos = snapshot.val();
+            if (cryptos) {
+                userCryptos = cryptos;
+                displayCryptos();
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao carregar criptomoedas: ', error);
+        });
+}
 
 // Função para buscar criptomoeda na API CoinPaprika
 document.getElementById('btnSearch').addEventListener('click', function() {
@@ -57,51 +62,53 @@ document.getElementById('btnSearch').addEventListener('click', function() {
         .then(coins => {
             const filteredCoin = coins.find(coin => coin.name.toLowerCase() === searchCrypto.toLowerCase() || coin.symbol.toLowerCase() === searchCrypto.toLowerCase());
             if (filteredCoin) {
-                return fetch(`https://api.coinpaprika.com/v1/tickers/${filteredCoin.id}`);
+                // Buscar informações detalhadas, incluindo o logo da criptomoeda
+                return fetch(`https://api.coinpaprika.com/v1/coins/${filteredCoin.id}`);
             } else {
                 throw new Error("Criptomoeda não encontrada.");
             }
         })
         .then(response => response.json())
-        .then(data => {
-            if (data.quotes && data.quotes.USD) {
-                return fetch(`https://api.coinpaprika.com/v1/coins/${data.id}`)
-                    .then(response => response.json())
-                    .then(coinData => {
+        .then(coinDetails => {
+            // Usar o ID da criptomoeda para buscar dados de preço
+            return fetch(`https://api.coinpaprika.com/v1/tickers/${coinDetails.id}`)
+                .then(response => response.json())
+                .then(tickerData => {
+                    if (tickerData.quotes && tickerData.quotes.USD) {
                         const cryptoData = {
-                            id: data.id,
-                            name: data.name,
-                            price: data.quotes.USD.price,
-                            image: coinData.logo || 'default-image-url',
+                            id: tickerData.id,
+                            name: coinDetails.name,
+                            price: tickerData.quotes.USD.price,
+                            image: coinDetails.logo ? coinDetails.logo : 'default-image-url', // Usar logo da CoinPaprika ou uma imagem padrão
                         };
+
                         const quantity = prompt('Quantos dessa moeda você tem?');
                         if (quantity && !isNaN(quantity)) {
-                            cryptoData.quantity = parseFloat(quantity); // Permitir decimal
+                            cryptoData.quantity = parseFloat(quantity);
                             userCryptos.push(cryptoData);
                             displayCryptos();
                             saveCryptosToFirebase(); // Salvar no Firebase
                         } else {
                             alert("Por favor, insira uma quantidade válida.");
                         }
-                    });
-            } else {
-                throw new Error("Dados de preço da criptomoeda não encontrados.");
-            }
+                    } else {
+                        throw new Error("Dados de preço da criptomoeda não encontrados.");
+                    }
+                });
         })
         .catch(error => alert(error.message));
 });
 
+
 // Função para exibir criptomoedas
-async function displayCryptos() {
+function displayCryptos() {
     const cryptoList = document.getElementById('cryptoList');
     cryptoList.innerHTML = '';
 
-    const exchangeRate = await getExchangeRate(); // Obtém a taxa de câmbio
-
     userCryptos.forEach((crypto, index) => {
-        const totalValue = (crypto.price * exchangeRate * crypto.quantity).toFixed(2); // Cálculo correto
         const cryptoItem = document.createElement('div');
         cryptoItem.className = 'cryptoItem';
+        const totalValue = (crypto.price * crypto.quantity).toFixed(2); // Cálculo total
         cryptoItem.innerHTML = `
             <img src="${crypto.image}" alt="${crypto.name}">
             <div>
@@ -121,18 +128,11 @@ async function displayCryptos() {
     });
 }
 
-// Função para obter a taxa de câmbio USD para BRL
-async function getExchangeRate() {
-    const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
-    const data = await response.json();
-    return data.rates.BRL; // Retorna a taxa de câmbio
-}
-
 // Função para atualizar a quantidade
 function updateQuantity(index) {
     const newQuantity = prompt("Insira a nova quantidade para " + userCryptos[index].name + ":");
     if (newQuantity && !isNaN(newQuantity)) {
-        userCryptos[index].quantity = parseFloat(newQuantity); // Permitir decimal
+        userCryptos[index].quantity = parseFloat(newQuantity);
         displayCryptos();
         saveCryptosToFirebase(); // Salvar no Firebase
     } else {
@@ -154,6 +154,65 @@ function saveCryptosToFirebase() {
         .then(() => console.log('Criptomoedas salvas com sucesso!'))
         .catch(error => console.error('Erro ao salvar as criptomoedas: ', error));
 }
+
+// Função para fazer upload da foto de perfil e atualizar no Firebase
+var fileInput = document.getElementById('fileInput');
+fileInput.addEventListener('change', function(event) {
+    var file = event.target.files[0];
+
+    if (auth.currentUser) {
+        var userId = auth.currentUser.uid;
+        var storageRef = storage.ref('profilePictures/' + userId + '.jpg');
+
+        storageRef.put(file).then(function() {
+            storageRef.getDownloadURL().then(function(url) {
+                auth.currentUser.updateProfile({
+                    photoURL: url
+                }).then(function() {
+                    document.getElementById('profilePic').src = url;
+                    alert("Foto de perfil atualizada com sucesso!");
+                }).catch(function(error) {
+                    alert("Erro ao atualizar o perfil: " + error.message);
+                });
+            });
+        }).catch(function(error) {
+            alert("Erro ao enviar a foto: " + error.message);
+        });
+    }
+});
+
+// Função para alterar a senha do usuário
+document.getElementById('btnAtualizar').addEventListener('click', function() {
+    var novaSenha = document.getElementById('novaSenha').value;
+    var user = auth.currentUser;
+
+    if (novaSenha) {
+        // Atualizar a senha do usuário
+        user.updatePassword(novaSenha).then(function() {
+            alert("Senha atualizada com sucesso!");
+            // Limpar o campo de nova senha após a atualização
+            document.getElementById('novaSenha').value = '';
+        }).catch(function(error) {
+            alert("Erro ao atualizar a senha: " + error.message);
+        });
+    } else {
+        alert("Por favor, insira uma nova senha.");
+    }
+});
+
+// Função para deletar a conta do usuário
+document.getElementById('btnDeletarConta').addEventListener('click', function() {
+    var user = auth.currentUser;
+
+    if (confirm("Você tem certeza que deseja deletar sua conta? Esta ação não pode ser desfeita.")) {
+        user.delete().then(function() {
+            alert("Conta deletada com sucesso!");
+            window.location.href = '../login/login.html';
+        }).catch(function(error) {
+            alert("Erro ao deletar a conta: " + error.message);
+        });
+    }
+});
 
 // Logout
 document.getElementById('btnLogout').addEventListener('click', function() {
