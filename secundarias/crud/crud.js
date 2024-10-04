@@ -17,6 +17,20 @@ var storage = firebase.storage(); // Adiciona o Firebase Storage
 
 // Armazena as criptomoedas do usuário na memória
 let userCryptos = [];
+let allCoins = []; // Para armazenar todas as moedas
+
+// Função para buscar todas as moedas na API
+function fetchAllCoins() {
+    fetch('https://api.coinpaprika.com/v1/coins')
+        .then(response => response.json())
+        .then(coins => {
+            allCoins = coins; // Armazena todas as moedas
+        })
+        .catch(error => console.error('Erro ao buscar moedas: ', error));
+}
+
+// Chame a função para buscar todas as moedas ao carregar a página
+fetchAllCoins();
 
 // Verificar o estado de autenticação do usuário
 auth.onAuthStateChanged(function(user) {
@@ -52,6 +66,41 @@ function loadUserCryptos(userId) {
             console.error('Erro ao carregar criptomoedas: ', error);
         });
 }
+
+// Evento de entrada no campo de pesquisa
+document.getElementById('searchCrypto').addEventListener('input', function() {
+    const searchValue = this.value.toLowerCase();
+    const suggestions = document.getElementById('suggestions');
+    suggestions.innerHTML = ''; // Limpa sugestões anteriores
+
+    if (searchValue) {
+        // Filtra as moedas com base na entrada do usuário
+        const filteredCoins = allCoins.filter(coin =>
+            coin.name.toLowerCase().includes(searchValue) ||
+            coin.symbol.toLowerCase().includes(searchValue)
+        );
+
+        // Se houver sugestões, exibe-as
+        if (filteredCoins.length > 0) {
+            filteredCoins.forEach(coin => {
+                const suggestionItem = document.createElement('div');
+                suggestionItem.className = 'suggestion-item';
+                suggestionItem.textContent = `${coin.name} (${coin.symbol})`;
+                suggestionItem.addEventListener('click', () => {
+                    document.getElementById('searchCrypto').value = coin.name; // Preenche o campo com a moeda escolhida
+                    suggestions.innerHTML = ''; // Limpa as sugestões
+                    suggestions.style.display = 'none'; // Esconde as sugestões
+                });
+                suggestions.appendChild(suggestionItem);
+            });
+            suggestions.style.display = 'block'; // Exibe as sugestões
+        } else {
+            suggestions.style.display = 'none'; // Esconde se não houver sugestões
+        }
+    } else {
+        suggestions.style.display = 'none'; // Esconde se o campo estiver vazio
+    }
+});
 
 // Função para buscar criptomoeda na API CoinPaprika
 document.getElementById('btnSearch').addEventListener('click', function() {
@@ -98,7 +147,6 @@ document.getElementById('btnSearch').addEventListener('click', function() {
         })
         .catch(error => alert(error.message));
 });
-
 
 // Função para exibir criptomoedas
 function displayCryptos() {
@@ -183,15 +231,11 @@ fileInput.addEventListener('change', function(event) {
 
 // Função para alterar a senha do usuário
 document.getElementById('btnAtualizar').addEventListener('click', function() {
-    var novaSenha = document.getElementById('novaSenha').value;
-    var user = auth.currentUser;
+    var newPassword = document.getElementById('novaSenha').value;
 
-    if (novaSenha) {
-        // Atualizar a senha do usuário
-        user.updatePassword(novaSenha).then(function() {
+    if (newPassword) {
+        auth.currentUser.updatePassword(newPassword).then(function() {
             alert("Senha atualizada com sucesso!");
-            // Limpar o campo de nova senha após a atualização
-            document.getElementById('novaSenha').value = '';
         }).catch(function(error) {
             alert("Erro ao atualizar a senha: " + error.message);
         });
@@ -200,31 +244,30 @@ document.getElementById('btnAtualizar').addEventListener('click', function() {
     }
 });
 
-// Função para deletar a conta do usuário
+// Função para deletar conta do usuário
 document.getElementById('btnDeletarConta').addEventListener('click', function() {
     var user = auth.currentUser;
 
-    if (confirm("Você tem certeza que deseja deletar sua conta? Esta ação não pode ser desfeita.")) {
+    if (user) {
         user.delete().then(function() {
             alert("Conta deletada com sucesso!");
-            window.location.href = '../login/login.html';
+            window.location.href = '../login/login.html'; // Redireciona para a página de login
         }).catch(function(error) {
             alert("Erro ao deletar a conta: " + error.message);
         });
     }
 });
 
-// Logout
+// Função para logout do usuário
 document.getElementById('btnLogout').addEventListener('click', function() {
     auth.signOut().then(function() {
-        alert("Logout realizado com sucesso.");
-        window.location.href = '../login/login.html';
+        alert("Logout realizado com sucesso!");
+        window.location.href = '../login/login.html'; // Redireciona para a página de login
     }).catch(function(error) {
-        alert("Erro ao realizar logout: " + error.message);
+        alert("Erro ao fazer logout: " + error.message);
     });
 });
 
-// Função para redirecionar
-document.getElementById('btnVoltar').addEventListener('click', function() {
+document.getElementById('btnVoltar').addEventListener('click', function(){
     window.location.href = '../../pdlogin.html';
-});
+})

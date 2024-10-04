@@ -126,7 +126,33 @@ button {
     max-width: 400px;
     /* Limitar a largura máxima */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     /* Adiciona as seguintes propriedades para scroll */
+     max-height: 500px; /* altura máxima do container */
+     overflow-y: auto; /* habilita a rolagem vertical */
 }
+
+.suggestions-list {
+    margin-top: 50px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-height: 150px; /* Altura máxima para o dropdown */
+    overflow-y: auto; /* Rolagem se as sugestões ultrapassarem a altura */
+    position: absolute; /* Para posicionamento */
+    width: 333px; /* Para alinhar com o campo de entrada */
+    z-index: 1000; /* Para garantir que fique acima dos outros elementos */
+    display: none; /* Escondido por padrão */
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0; /* Muda a cor ao passar o mouse */
+}
+
 
 .cryptoItem {
     display: flex;
