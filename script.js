@@ -1,7 +1,8 @@
-/* window.onload = paprikaApi;
- */
+window.onload = paprikaApi;
+
 const url = 'https://api.coinpaprika.com/v1/';
 let pAntes = window.scrollY;
+let chart; // Variável para armazenar o gráfico
 
 window.onscroll = function () {
     let pDepois = window.scrollY;
@@ -17,19 +18,16 @@ window.onscroll = function () {
 
 function paprikaApi() {
     const urlFinal = url + 'coins/';
-    const cacheKey = 'cryptoData'; // Chave para armazenar dados no localStorage
-    const cacheExpiryKey = 'cryptoDataExpiry'; // Chave para armazenar o timestamp de expiração
-
-    // Verifica se os dados estão no cache e se não expiraram
-    const cachedData = localStorage.getItem(cacheKey);
-    const cachedExpiry = localStorage.getItem(cacheExpiryKey);
+    const cacheKey = 'cryptoData';
+    const cacheExpiryKey = 'cryptoDataExpiry';
     const now = Date.now();
 
+    const cachedData = localStorage.getItem(cacheKey);
+    const cachedExpiry = localStorage.getItem(cacheExpiryKey);
+
     if (cachedData && cachedExpiry && now < cachedExpiry) {
-        // Dados válidos em cache
         displayData(JSON.parse(cachedData));
     } else {
-        // Faz a requisição à API
         fetch(urlFinal)
             .then(response => response.json())
             .then(data => {
@@ -40,10 +38,8 @@ function paprikaApi() {
 
                 Promise.all(fetchPromises).then(detailsArray => {
                     detailsArray.sort((a, b) => a.rank - b.rank);
-                    
-                    // Armazenar dados no localStorage
                     localStorage.setItem(cacheKey, JSON.stringify(detailsArray));
-                    localStorage.setItem(cacheExpiryKey, now + 3600000); // Expira em 1 hora
+                    localStorage.setItem(cacheExpiryKey, now + 3600000);
 
                     displayData(detailsArray);
                 }).catch(error => console.error('Erro ao carregar detalhes das moedas:', error));
@@ -54,7 +50,7 @@ function paprikaApi() {
 
 function displayData(detailsArray) {
     const list = document.querySelector('.listcoin');
-    list.innerHTML = ''; // Limpa a lista
+    list.innerHTML = '';
 
     detailsArray.forEach(details => {
         const listItem = document.createElement('li');
@@ -64,31 +60,70 @@ function displayData(detailsArray) {
             <strong>${details.rank} - ${details.name} (${details.symbol})</strong>
             <p>Última atualização: ${new Date(details.last_data_at).toLocaleString()}</p>
         `;
+
+        // Ao clicar em uma moeda, carregue os dados históricos
+        listItem.addEventListener('click', () => loadChartData(details.id, details.name));
+
         list.appendChild(listItem);
     });
 }
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
-const auth = getAuth();
-const db = getFirestore();
+function loadChartData(coinId, coinName) {
+    const today = new Date();
+    const twoDaysAgo = new Date();
+    twoDaysAgo.setDate(today.getDate() - 2);
 
-// Verificar se o usuário está autenticado
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        const userRef = doc(db, "users", user.uid);
-        getDoc(userRef).then((docSnap) => {
-            if (docSnap.exists()) {
-                const userData = docSnap.data();
-                document.getElementById('userName').innerText = userData.nome; // Exibir o nome do usuário
-            } else {
-                console.log("Nenhum dado de usuário encontrado!");
+    const urlHistorical = `${url}coins/${coinId}/ohlcv/historical?start=${twoDaysAgo.toISOString().split('T')[0]}&end=${today.toISOString().split('T')[0]}`;
+
+    fetch(urlHistorical)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erro HTTP: ${response.status}`);
             }
-        }).catch((error) => {
-            console.error("Erro ao buscar dados do usuário:", error);
-        });
-    } else {
-        // Usuário não está autenticado
-        window.location.href = '../login/login.html'; // Redirecionar para a página de login
+            return response.json();
+        })
+        .then(data => {
+            // Verifica se a resposta é um array válido
+            if (!Array.isArray(data)) {
+                throw new TypeError('A resposta não é um array.');
+            }
+
+            // Extrai as datas e os preços de fechamento
+            const labels = data.map(entry => new Date(entry.time_open).toLocaleDateString());
+            const prices = data.map(entry => entry.close);
+
+            // Exibe o gráfico com os dados
+            displayChart(coinName, labels, prices);
+        })
+        .catch(error => console.error('Erro ao carregar dados históricos:', error));
+}
+
+function displayChart(coinName, labels, prices) {
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    if (chart) {
+        chart.destroy(); // Destroi o gráfico anterior, se houver
     }
-});
+
+    chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels, // Datas
+            datasets: [{
+                label: `Preço de ${coinName}`,
+                data: prices, // Preços
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderWidth: 1,
+                fill: true
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: false
+                }
+            }
+        }
+    });
+}

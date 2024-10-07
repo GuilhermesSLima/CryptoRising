@@ -9,161 +9,137 @@
 
 body {
   background: #ffffff;
-  height: 300vh;
+  height: 100vh;
   margin: 0;
   padding: 0;
 }
 
-.rectangle-1 {
-  background: #025e73;
-  width: 100%;
-  height: 100px;
+.wrapper {
+  margin-top: 10px;
   display: flex;
+  justify-content: center;
   align-items: center;
+  min-height: 100px;
 }
 
-.rectangle-8 {
-  background: #011f26;
-  border-radius: 10px;
-  width: 104px;
-  height: 33px;
-  text-align: center;
-  color: #ffffff;
-  font-family: "Inter-Bold", sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-}
-/* 
-.navesq {
-  width: 100%;
-  margin: 0;
+.nav {
+  position: fixed;
+  top: 0;
   display: flex;
   justify-content: space-around;
-}
-
-.navesq li {
-  list-style: none;
-}
-
-.navesq li a {
-  text-decoration: none;
-  color: #ffffff;
-}
- */
-.logo-tcc-3-1 {
-  width: 263px;
-  height: 78px;
-  object-fit: cover;
-}
-
-.rectangle-6 {
-  background: #025e73;
   width: 100%;
-  height: 670px;
+  height: 100px;
+  line-height: 100px;
+  z-index: 100;
+  background-color: #025e73;
+}
+
+.nav-logo img {
+  width: 100px;
+}
+
+.nav-menu {
+  display: flex;
+}
+
+.nav-menu ul {
   display: flex;
   align-items: center;
 }
 
-.rectangle-5 {
-  background: #025e73;
-  width: 100%;
-  height: 194px;
+.nav-menu ul li {
+  list-style-type: none;
 }
 
-.coins-amico-1 {
-  width: 511px;
-  height: 509px;
+.nav-menu ul li .link {
+  text-decoration: none;
+  font-weight: 500;
+  color: #fff;
+  padding-bottom: 15px;
+  margin: 0 25px;
 }
 
-p{
-  color: #ffffff;
-  text-align: left;
-  font-family: "Inter-Italic", sans-serif;
-  font-size: 40px;
-  font-weight: 400;
-  font-style: italic;
-  left: 125px;
-  top: 345px;
-  width: 595px;
-  height: 143px;
-  margin: 10px;
- }
+.link:hover,
+.active {
+  border-bottom: 2px solid #fff;
+}
 
-.sobre-n-s {
-  color: #ffffff;
-  text-align: left;
-  font-family: "Inter-Bold", sans-serif;
-  font-size: 20px;
-  font-weight: 700;
+.nav-menu-btn {
+  display: none;
+}
+
+.secaoslide{
+  height: 100vh;
+}
+
+.slider {
+  width: 1300px;
+  max-width: 100vw;
+  height: 700px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.slider .list {
   position: absolute;
-  width: 102px;
-  height: 23px;
+  width: max-content;
+  height: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  transition: 1s;
 }
 
-.login {
-  color: #ffffff;
-  text-align: left;
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  position: absolute;
-  width: 55px;
-  height: 19px;
-}
-
-.rectangle-7 {
-  background: #011f26;
-  width: 100%;
-  height: 750px;
-}
-
-.rectangle-4 {
-  background: #a5a692;
-  width: 100%;
-  height: 750px;
-}
-
-.coins-rafiki-1-1 {
-  width: 685px;
-  height: 651px;
-  position: absolute;
-  left: 35px;
-  top: 857px;
+.slider .list img {
+  width: 1300px;
+  max-width: 100vw;
+  height: 100%;
   object-fit: cover;
 }
 
-.cota-o-da-criptomoeda-em-tempo-real {
-  color: #ffffff;
-  text-align: left;
-  font-family: "Inter-Light", sans-serif;
-  font-size: 48px;
-  font-weight: 300;
+.slider .buttons {
   position: absolute;
-  left: 790px;
-  top: 947px;
-  width: 595px;
-  height: 116px;
+  top: 45%;
+  left: 2%;
+  width: 96%;
+  display: flex;
+  justify-content: space-between;
 }
 
-.todas-as-moedas-aqui {
-  color: #ffffff;
-  text-align: right;
-  font-family: "Inter-Light", sans-serif;
-  font-size: 32px;
-  font-weight: 300;
-  position: absolute;
-  width: 595px;
-  height: 38px;
+.slider .buttons button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  font-family: monospace;
+  font-weight: bold;
 }
 
-.perguntas-frequentes {
-  color: #000000;
-  text-align: center;
-  font-family: "Inter-Light", sans-serif;
-  font-size: 64px;
-  font-weight: 300;
+.slider .dots {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  color: #fff;
   width: 100%;
-  height: 132px;
+  display: flex;
+  justify-content: center;
+}
+
+.slider .dots li {
+  list-style: none;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  margin: 10px;
+  border-radius: 20px;
+  transition: 0.5s;
+}
+
+.slider .dots li.active {
+  width: 30px;
 }
 
 .accordion {
@@ -198,114 +174,176 @@ p{
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
 }
 
-header{
-  width: 100%;
-  background-color: #025e73;
-    color: #fff;
-    padding: 10px;
-}
-
-nav{
-  position: relative;
-}
-
-.hamburguer{
-  display: none;
-  cursor: pointer;
-}
-
-nav ul{
-  list-style: none;
-  display: flex;
-  justify-content: space-around;
-}
-
-nav ul li {
-  margin: 0 15px;
-}
-
-nav ul li a{
-  color: #fff;
-  text-decoration: none;
-}
-
-.rectangle-6, .rectangle-7{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-@media (max-width: 768px) {
-  .hamburguer{
-      display: block;
-      position: absolute;
-      right: 10px;
-      top: -50px;
+/* Media Queries */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .slider {
+    height: 500px;
   }
-  nav ul{
-      display: none;
-      flex-direction: column;
-      position: absolute;
-      top: 20px;
-      left: 0;
-      background-color: #025e73;
+}
+
+@media (max-width: 767px) {
+  .nav-menu {
+    flex-direction: column;
+    display: none;
+    background-color: #025e73;
+    width: 100%;
+    position: absolute;
+    top: 50px;
+    left: 0;
+  }
+
+  .nav-menu.show {
+    display: flex;
+  }
+
+  .slider {
+    height: 400px;
+  }
+
+  .slider .list img {
+    width: 100%;
+  }
+
+  .hamburguer {
+    display: block;
+    cursor: pointer;
+  }
+
+  .slider .buttons {
+    top: 40%;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  .slider {
+    height: 300px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .wrapper {
+      padding: 10px;
+      /* Reduz o padding da wrapper */
+  }
+
+  .inner-section {
+      padding: 10px;
+      /* Reduz ainda mais o padding */
+      text-align: center;
+      /* Garante centralização */
+  }
+
+  .text {
+      font-size: 12px;
+      /* Ajusta o tamanho da fonte */
+      line-height: 18px;
+      /* Ajusta o espaçamento entre linhas */
+      text-align: center;
+      /* Centraliza o texto */
+  }
+
+  .skills button {
+      font-size: 14px;
+      /* Ajusta o tamanho do botão */
+      padding: 5px;
+      /* Ajusta o padding */
       width: 100%;
+      /* Garante que o botão ocupe toda a largura */
   }
-  nav ul li{
-      margin: 10px 0;
+
+  header {
+      font-size: 20px;
+      /* Ajusta o tamanho do cabeçalho */
+  }
+
+  .nav-menu {
+      flex-direction: column;
+      /* Coloca os itens em coluna */
+      align-items: center;
+      /* Centraliza os itens */
+  }
+
+  .nav-menu ul li {
+      padding: 5px 0;
+      /* Ajusta o padding dos itens do menu */
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  .wrapper {
+      min-height: 100vh;
+  }
+
+  .form-box {
+      width: 100%;
+      height: 500px;
+  }
+
+  .register-container,
+  .login-container {
+      width: 100%;
+      padding: 0 20px;
+  }
+
+  .register-container .two-forms {
+      flex-direction: column;
+      gap: 0;
+  }
+}
+@media only screen and (max-width: 786px) {
+  .slider{
+    width: 80%;
+    height: 80%;
+  }
+  .nav-button {
+      display: none;
+      /* Esconde os botões de login e registro em telas pequenas */
+  }
+
+  .nav-menu {
+      position: absolute;
+      top: -1000px;
+      /* Inicialmente fora da tela */
+      display: flex;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.2);
+      width: 100%;
+      height: 90vh;
+      backdrop-filter: blur(20px);
+      transition: top 0.3s;
+      /* Transição suave */
+  }
+
+  .nav-menu.responsive {
+      top: 70px;
+      /* Posiciona abaixo da navbar */
+  }
+
+  .nav-menu ul {
+      flex-direction: column;
       text-align: center;
   }
-  nav ul.show{
-      display: flex;
-      z-index: 99;
-  }
-.crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro{
-  font-size: 15px;
-  width: 30%;
-}
 
-
-  .coins-amico-1, .coins-rafiki-1-1{
-    width: 50%;
-    height: 50%;
-  }
-}
-
-/* Responsividade */
-/*@media (max-width: 1200px) {
-  .rectangle-6 {
-    display: flex;
-    flex-direction: column;
+  .nav-menu ul li .link {
+      color: #000;
   }
 
-  .coins-amico-1,
-  .coins-rafiki-1-1 {
-    width: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-   .crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro {
-    align-items: center;
-    z-index: 999;
-    top: 15%;
+
+  .nav-menu-btn {
+      display: block;
+      /* Exibe o botão do menu sanduíche */
   }
 
-  .crypto-rising-invista-em-criptomoedas-e-eleve-seu-futuro,
-  .cota-o-da-criptomoeda-em-tempo-real {
-    width: 80%;
-    left: 10%;
-    font-size: 32px;
+  .nav-menu-btn i {
+      font-size: 25px;
+      color: #fff;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: .3s;
   }
 
-  .rectangle-4 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .accordion {
-    width: 85%;
+  .nav-menu-btn i:hover {
+      background: rgba(255, 255, 255, 0.15);
   }
 }
-
- */
