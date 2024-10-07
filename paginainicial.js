@@ -1,4 +1,4 @@
-function toggleMenu(){
-  const menu = document.getElementById('menu');
-  menu.classList.toggle('show');
-}
+window.alternarMenu = function() {
+  var menuNavegacao = document.getElementById("menuNavegacao");
+  menuNavegacao.classList.toggle("responsive");
+};
