@@ -6,64 +6,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <title>Perfil do Usuário</title>
     <link rel="stylesheet" href="crud.css">
-    <style>
-        /* Estilo do container de criptomoedas */
-        #cryptoContainer {
-            background-color: aliceblue;
-            border-radius: 10px;
-            padding: 20px;
-            margin-left: 20px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .cryptoItem {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .cryptoItem img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .cryptoForm {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-        }
-
-        .cryptoForm input {
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-        }
-
-        .cryptoForm button {
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .cryptoForm button:hover {
-            background-color: #555454;
-        }
-    </style>
 </head>
 <body>
+    <div class="container">
     <div id="perfilUsuario">
         <div class="dois">
             <button id="btnVoltar"><i class="bi bi-arrow-left"></i></button>
@@ -95,11 +40,10 @@
             <input type="text" id="searchCrypto" placeholder="Pesquisar moeda..." />
             <button id="btnSearch">Buscar</button>
             <div id="suggestions" class="suggestions-list"></div>
-
         </div>
         <div id="cryptoList"></div>
     </div>
-
+</div>
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>

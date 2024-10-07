@@ -12,73 +12,40 @@ body {
     background-color: #f4f4f9;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+    align-items: flex-start; /* Mudado para flex-start para melhor alinhamento */
+    flex-direction: column; /* Mantenha como coluna por padrão */
+    padding: 20px; /* Adiciona padding para evitar que o conteúdo encoste nas bordas */
 }
 
-h1 {
-    color: #333;
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 20px;
+.container {
+    display: flex; /* Permite o layout lado a lado */
+    flex-wrap: wrap; /* Permite que as divs quebrem para a próxima linha */
+    justify-content: center; /* Centraliza as divs */
+    width: 100%; /* Garante que a largura seja 100% do contêiner pai */
 }
 
-p {
-    font-size: 1.2rem;
-    color: #555;
-    text-align: center;
-}
 
-#userName {
-    font-weight: bold;
-    color: #333;
-}
-
-button {
-    color: white;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    display: block;
-    margin: 20px auto;
-    display: flex;
-    justify-content: center;
-    background-color: #333;
-}
-
-button:hover {
-    background-color: #555454;
-}
-
-/* Centralizar o conteúdo */
-body,
-html {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
+/* Estilo das divs */
 #perfilUsuario {
     background-color: aliceblue;
     width: 90%;
-    /* Responsivo */
-    max-width: 400px;
-    /* Limitar a largura máxima */
+    max-width: 400px; /* Limitar a largura máxima */
     padding: 20px;
-    /* Ajustado para responsividade */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Espaço entre os containers */
 }
+
+#cryptoContainer{
+    background-color: aliceblue;
+    width: 90%;
+    max-width: 400px; /* Limitar a largura máxima */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Espaço entre os containers */
+}
+
 
 .dois {
     display: flex;
@@ -88,72 +55,10 @@ html {
 
 #btnVoltar {
     flex: 0;
-    width: 20px;
+    padding: 12px;
+    height: 40px;
+    width: 40px;
 }
-
-#editar {
-    text-align: center;
-    flex: 20;
-}
-
-.form input {
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    width: 100%;
-}
-
-.botoes {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-button {
-    flex: 1 1 100%;
-    max-width: 45%;
-    /* Limitar a largura dos botões */
-    margin: 10px 5px;
-}
-
-#cryptoContainer {
-    background-color: aliceblue;
-    border-radius: 10px;
-    padding: 20px;
-    margin-left: 20px;
-    width: 90%;
-    /* Responsivo */
-    max-width: 400px;
-    /* Limitar a largura máxima */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-     /* Adiciona as seguintes propriedades para scroll */
-     max-height: 500px; /* altura máxima do container */
-     overflow-y: auto; /* habilita a rolagem vertical */
-}
-
-.suggestions-list {
-    margin-top: 50px;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    max-height: 150px; /* Altura máxima para o dropdown */
-    overflow-y: auto; /* Rolagem se as sugestões ultrapassarem a altura */
-    position: absolute; /* Para posicionamento */
-    width: 333px; /* Para alinhar com o campo de entrada */
-    z-index: 1000; /* Para garantir que fique acima dos outros elementos */
-    display: none; /* Escondido por padrão */
-}
-
-.suggestion-item {
-    padding: 10px;
-    cursor: pointer; /* Muda o cursor para indicar que é clicável */
-}
-
-.suggestion-item:hover {
-    background-color: #f0f0f0; /* Muda a cor ao passar o mouse */
-}
-
-
 .cryptoItem {
     display: flex;
     align-items: center;
@@ -170,6 +75,74 @@ button {
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+}
+#editar {
+    text-align: center;
+    flex: 20;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form input {
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    width: 100%;
+}
+
+.botoes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+button {
+    flex: 1 1 100%; /* Ajusta o botão para ocupar a largura total */
+    max-width: 45%; /* Limita a largura dos botões */
+    color: white;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #333;
+    margin: 5px 0; /* Margem entre os botões */
+}
+
+button:hover {
+    background-color: #555454;
+}
+
+#profilePic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #333;
+    margin: 20px 0; /* Espaçamento ao redor da imagem */
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    background-color: #333;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.custom-file-upload:hover {
+    background-color: #555454;
+}
+
+.custom-file-upload input[type="file"] {
+    display: none; /* Oculta o input padrão */
 }
 
 .cryptoForm {
@@ -198,56 +171,22 @@ button {
     background-color: #555454;
 }
 
-
-/* Estilo para deixar a foto de perfil com borda arredondada */
-#profilePic {
-    width: 150px;
-    /* Definir o tamanho da imagem */
-    height: 150px;
-    border-radius: 50%;
-    /* Faz a imagem ficar circular */
-    object-fit: cover;
-    /* Garante que a imagem ocupe todo o espaço sem distorcer */
-    border: 3px solid #333;
-    /* Adiciona uma borda fina */
-}
-
-.btn-trash {
-    font-size: 0.8rem;
-    /* Tamanho da fonte menor */
-    padding: 0.2rem 0.4rem;
-    /* Ajustar o padding para um botão menor */
-    border: none;
-    /* Remove a borda padrão */
-    background-color: #333;
-    /* Torna o fundo transparente */
-    width: 45px;
-    height: 40px;
-}
-.custom-file-upload {
-    display: inline-block;
-    padding: 10px 20px;
-    color: white;
-    background-color: #333;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    margin: 10px 0;
-}
-
-.custom-file-upload:hover {
-    background-color: #555454;
-}
-
-.custom-file-upload input[type="file"] {
-    display: none; /* Oculta o input padrão */
-}
-
-
 /* Responsividade */
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row; /* As divs se tornam lado a lado */
+    }
+
+    #perfilUsuario,
+    #cryptoContainer {
+        margin: 0 10px; /* Margem entre os containers */
+    }
+}
+
 @media (max-width: 600px) {
-    #perfilUsuario {
-        padding: 15px;
+    #perfilUsuario,
+    #cryptoContainer {
+        padding: 15px; /* Ajusta o padding */
     }
 
     h2 {
@@ -261,5 +200,65 @@ button {
     button {
         padding: 8px;
         font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 425px) {
+    #perfilUsuario,
+    #cryptoContainer {
+        margin-bottom: 10px; /* Remove a margem esquerda e direita para telas menores */
+    }
+
+    .botoes {
+        flex-direction: column; /* Coloca os botões em coluna */
+        align-items: stretch; /* Faz os botões ocuparem toda a largura */
+    }
+
+    button {
+        width: 100%; /* Botões ocupam toda a largura */
+        margin: 5px 0; /* Adiciona margem entre os botões */
+    }
+
+    #profilePic {
+        width: 100px; /* Ajusta o tamanho da imagem do perfil */
+        height: 100px;
+    }
+
+    h2 {
+        font-size: 1.2rem; /* Ajusta o tamanho do título */
+    }
+}
+
+@media (max-width: 320px) {
+    #perfilUsuario,
+    #cryptoContainer {
+        padding: 10px; /* Reduz o padding */
+    }
+
+    .form input {
+        padding: 8px; /* Reduz o padding dos inputs */
+        font-size: 0.9rem; /* Reduz o tamanho da fonte dos inputs */
+    }
+
+    button {
+        padding: 6px; /* Reduz o padding dos botões */
+        font-size: 0.8rem; /* Reduz o tamanho da fonte dos botões */
+    }
+
+    h2 {
+        font-size: 1.1rem; /* Ajusta o tamanho do título para telas pequenas */
+    }
+
+    #profilePic {
+        width: 80px; /* Ajusta o tamanho da imagem do perfil */
+        height: 80px;
+    }
+
+    #searchCrypto {
+        font-size: 0.9rem; /* Ajusta o tamanho da fonte da pesquisa */
+    }
+
+    .cryptoForm button {
+        font-size: 0.8rem; /* Ajusta o tamanho do botão de busca */
     }
 }
