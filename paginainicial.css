@@ -15,7 +15,6 @@ body {
 }
 
 .wrapper {
-  margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,11 +30,11 @@ body {
   height: 100px;
   line-height: 100px;
   z-index: 100;
-  background-color: #025e73;
+  background-color: transparent;
 }
 
 .nav-logo img {
-  width: 100px;
+  width: 80px;
 }
 
 .nav-menu {
@@ -54,14 +53,15 @@ body {
 .nav-menu ul li .link {
   text-decoration: none;
   font-weight: 500;
-  color: #fff;
+  color: #333;
   padding-bottom: 15px;
   margin: 0 25px;
 }
 
 .link:hover,
 .active {
-  border-bottom: 2px solid #fff;
+  transition: ease-in;
+  border-bottom: 2px solid #333;
 }
 
 .nav-menu-btn {
@@ -174,6 +174,46 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
 }
 
+.fundo-1{
+  height: 100vh;
+  background: url(/src/images/pprinc/fundo1.svg);
+}
+.primeiro{
+  display: flex;
+  align-items: center;
+  padding: 30px;
+}
+.texto-d{
+  font-family: 'Poppins';
+  width: 50%;
+  height: auto; 
+}
+.texto-d h1{
+  font-size: 119px;
+  font:bold;
+}
+.texto-d h2{
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 90px;
+}
+.futuro{
+  color: #eeba2b;
+}
+.img-e{
+display: flex;
+justify-content: center;
+}
+
+.img-e img{
+  width: 50%;
+  height: 50%;
+}
+.fundo-2{
+  height: 100vh;
+  background: url(/src/images/pprinc/fundo2.svg);
+}
 /* Media Queries */
 @media (min-width: 768px) and (max-width: 1023px) {
   .slider {
