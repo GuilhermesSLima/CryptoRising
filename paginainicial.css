@@ -214,6 +214,62 @@ justify-content: center;
   height: 100vh;
   background: url(/src/images/pprinc/fundo2.svg);
 }
+.acomp{
+  display: flex;
+  align-items: center;
+}
+.img-d img{
+  margin-top: 30px;
+  width: 600px;
+  height: 50%;
+}
+.texto2{
+  display: flex;
+  width: 70%;
+  justify-content: end;
+  padding: 20px;
+}
+.acompanhe{
+  
+  text-align: end;
+  font-family: 'Poppins';
+  height: auto; 
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 90px;
+}
+.azul{
+  color: #025e73;
+}
+.saiba{
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.fundo-3{
+  height: 100vh;
+  background: url(/src/images/pprinc/fundo3.svg);
+}
+.texto3{
+  display: flex;
+  justify-content: end;
+  padding: 20px;
+  width: auto;
+  margin-top: 50vh;
+}
+.saibaquais{
+  text-align: end;
+  font-family: 'Poppins';
+  height: auto; 
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 90px;
+}
+.amarelo{
+  color: #eeba2b;
+}
 /* Media Queries */
 @media (min-width: 768px) and (max-width: 1023px) {
   .slider {
