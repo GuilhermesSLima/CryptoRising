@@ -1,8 +1,8 @@
-window.onload = loadChartData;
+window.onload = paprikaApi;
 
 const url = 'https://api.coinpaprika.com/v1/';
 let pAntes = window.scrollY;
-let chart; // Variável global para armazenar o gráfico
+let chart; // Variável para armazenar o gráfico
 
 window.onscroll = function () {
     let pDepois = window.scrollY;
@@ -16,37 +16,105 @@ window.onscroll = function () {
     pAntes = pDepois;
 };
 
-function loadChartData() {
-    fetch('get_crypto_data.php') // Faz requisição ao arquivo PHP
-        .then(response => response.json())
-        .then(data => {
-            const coinNames = [...new Set(data.map(item => item.nome))]; // Extrai os nomes únicos das moedas
-            coinNames.forEach(coinName => {
-                const coinData = data.filter(item => item.nome === coinName);
-                const labels = coinData.map(item => new Date(item.data_registro).toLocaleDateString());
-                const prices = coinData.map(item => item.valor);
+function paprikaApi() {
+    const urlFinal = url + 'coins/';
+    const cacheKey = 'cryptoData';
+    const cacheExpiryKey = 'cryptoDataExpiry';
+    const now = Date.now();
 
-                // Exibir o gráfico para cada moeda
-                displayChart(coinName, labels, prices);
-            });
+    const cachedData = localStorage.getItem(cacheKey);
+    const cachedExpiry = localStorage.getItem(cacheExpiryKey);
+
+    if (cachedData && cachedExpiry && now < cachedExpiry) {
+        displayData(JSON.parse(cachedData));
+    } else {
+        fetch(urlFinal)
+            .then(response => response.json())
+            .then(data => {
+                const fetchPromises = data.slice(0, 5).map(coin => {
+                    return fetch(`${url}coins/${coin.id}`)
+                        .then(response => response.json());
+                });
+
+                Promise.all(fetchPromises).then(detailsArray => {
+                    detailsArray.sort((a, b) => a.rank - b.rank);
+                    localStorage.setItem(cacheKey, JSON.stringify(detailsArray));
+                    localStorage.setItem(cacheExpiryKey, now + 3600000);
+
+                    displayData(detailsArray);
+                }).catch(error => console.error('Erro ao carregar detalhes das moedas:', error));
+            })
+            .catch(error => console.error('Erro ao buscar dados:', error));
+    }
+}
+
+function displayData(detailsArray) {
+    const list = document.querySelector('.listcoin');
+    list.innerHTML = '';
+
+    detailsArray.forEach(details => {
+        const listItem = document.createElement('li');
+        listItem.className = 'moedas';
+        listItem.innerHTML = `
+            <img src="${details.logo}" alt="${details.name} logo" style="width: 30px; height: 30px;">
+            <strong>${details.rank} - ${details.name} (${details.symbol})</strong>
+            <p>Última atualização: ${new Date(details.last_data_at).toLocaleString()}</p>
+        `;
+
+        // Ao clicar em uma moeda, carregue os dados históricos e informações
+        listItem.addEventListener('click', () => loadChartData(details.id, details.name));
+
+        list.appendChild(listItem);
+    });
+}
+
+function loadChartData(coinId, coinName) {
+    const today = new Date();
+    const twoDaysAgo = new Date();
+    twoDaysAgo.setDate(today.getDate() - 2);
+
+    const urlHistorical = `${url}coins/${coinId}/ohlcv/historical?start=${twoDaysAgo.toISOString().split('T')[0]}&end=${today.toISOString().split('T')[0]}`;
+
+    fetch(urlHistorical)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+            return response.json();
         })
-        .catch(error => console.error('Erro ao carregar dados:', error));
+        .then(data => {
+            // Verifica se a resposta é um array válido
+            if (!Array.isArray(data)) {
+                throw new TypeError('A resposta não é um array.');
+            }
+
+            // Extrai as datas e os preços de fechamento
+            const labels = data.map(entry => new Date(entry.time_open).toLocaleDateString());
+            const prices = data.map(entry => entry.close);
+
+            // Atualiza informações adicionais da criptomoeda
+            updateCryptoInfo(coinId);
+
+            // Exibe o gráfico com os dados
+            displayChart(coinName, labels, prices);
+        })
+        .catch(error => console.error('Erro ao carregar dados históricos:', error));
 }
 
 function displayChart(coinName, labels, prices) {
     const ctx = document.getElementById('myChart').getContext('2d');
 
     if (chart) {
-        chart.destroy(); // Destrói o gráfico anterior, se houver
+        chart.destroy(); // Destroi o gráfico anterior, se houver
     }
 
     chart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: labels, // Datas (hoje, ontem, dois dias atrás)
+            labels: labels, // Datas
             datasets: [{
-                label: `Preço de ${coinName}`, // Nome da criptomoeda
-                data: prices, // Preços das criptomoedas
+                label: `Preço de ${coinName}`,
+                data: prices, // Preços
                 borderColor: 'rgba(75, 192, 192, 1)',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderWidth: 1,
@@ -56,9 +124,26 @@ function displayChart(coinName, labels, prices) {
         options: {
             scales: {
                 y: {
-                    beginAtZero: false // Iniciar o gráfico a partir do menor valor
+                    beginAtZero: false
                 }
             }
         }
     });
+}
+
+function updateCryptoInfo(coinId) {
+    fetch(`${url}coins/${coinId}`)
+        .then(response => response.json())
+        .then(data => {
+            const cryptoName = document.getElementById('cryptoName');
+            const cryptoPrice = document.getElementById('cryptoPrice');
+            const cryptoMarketCap = document.getElementById('cryptoMarketCap');
+            const cryptoChange = document.getElementById('cryptoChange');
+
+            cryptoName.textContent = data.name;
+            cryptoPrice.textContent = `$${data.quotes.USD.price.toFixed(2)}`;
+            cryptoMarketCap.textContent = `$${data.quotes.USD.market_cap.toFixed(2)}`;
+            cryptoChange.textContent = `${data.quotes.USD.percent_change_24h}%`;
+        })
+        .catch(error => console.error('Erro ao carregar dados da criptomoeda:', error));
 }
