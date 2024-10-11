@@ -9,7 +9,7 @@
 }
 
 body {
-    background-color: #f4f4f9;
+    background-color: #025e73;
     display: flex;
     justify-content: center;
     align-items: flex-start; /* Mudado para flex-start para melhor alinhamento */
@@ -27,17 +27,18 @@ body {
 
 /* Estilo das divs */
 #perfilUsuario {
-    background-color: aliceblue;
+    background-color: #151f28;
     width: 90%;
     max-width: 400px; /* Limitar a largura máxima */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px; /* Espaço entre os containers */
+    max-height: 650px;
 }
 
 #cryptoContainer{
-    background-color: aliceblue;
+    background-color: #ffc60b;
     width: 90%;
     max-width: 400px; /* Limitar a largura máxima */
     padding: 20px;
@@ -57,6 +58,7 @@ body {
     flex: 0;
     padding: 12px;
     height: 40px;
+    background-color: transparent;
     width: 40px;
 }
 .cryptoItem {
@@ -79,8 +81,15 @@ body {
 #editar {
     text-align: center;
     flex: 20;
+    color: #ffc60b;
 }
 
+.gerenciar{
+    justify-content: center;
+    display: flex;
+    text-align: center;
+    font-size: 20px;
+}
 .form {
     display: flex;
     flex-direction: column;
@@ -100,6 +109,10 @@ body {
     justify-content: space-between;
 }
 
+.btn-group-vertical button{
+    color: #000;
+    background-color: transparent;
+}
 button {
     flex: 1 1 100%; /* Ajusta o botão para ocupar a largura total */
     max-width: 45%; /* Limita a largura dos botões */
@@ -109,12 +122,13 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #333;
+    background-color: #025e73;
     margin: 5px 0; /* Margem entre os botões */
 }
 
-button:hover {
-    background-color: #555454;
+.sair{
+    display: flex;
+    justify-content: center;
 }
 
 #profilePic {
@@ -122,23 +136,40 @@ button:hover {
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #333;
+    border: 3px solid #ffc60b;
     margin: 20px 0; /* Espaçamento ao redor da imagem */
 }
-
+.top{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+#novaSenha, #emailAtual{
+    background-color: #ffc60b;
+    border: 2px solid transparent;
+    border-radius: 17px;
+}
+label{
+    color: #fff;
+}
+/* ::-webkit-input-placeholder {
+    color: red;
+ } */
 .custom-file-upload {
     display: inline-block;
     padding: 10px 20px;
     color: white;
-    background-color: #333;
+    background-color: #ffc60b;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
     margin: 10px 0;
 }
 
+
+
 .custom-file-upload:hover {
-    background-color: #555454;
+    background-color: #dbaa09;
 }
 
 .custom-file-upload input[type="file"] {

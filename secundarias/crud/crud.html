@@ -14,28 +14,33 @@
             <button id="btnVoltar"><i class="bi bi-arrow-left"></i></button>
             <h2 id="editar">Editar Perfil</h2>
         </div>
+        <div class="top">
         <img id="profilePic" src="" alt="Foto de perfil do usuário" />
         <label class="custom-file-upload">
             <input type="file" id="fileInput" accept="image/*" />
             Selecionar Imagem
         </label>
-        
+    </div>
         <div class="form">
-            <label for="emailAtual">Email Atual:</label>
+            <label for="emailAtual"><i class="bi bi-person"></i>Email Atual:</label>
             <input type="text" id="emailAtual" disabled>
             
-            <label for="novaSenha">Nova Senha:</label>
+            <label for="novaSenha"><i class="bi bi-lock"></i>Nova Senha:</label>
             <input type="password" id="novaSenha" placeholder="Digite sua nova senha">
         </div>
         <div class="botoes">
             <button id="btnAtualizar">Atualizar Senha</button>
             <button id="btnDeletarConta">Deletar conta</button>
-            <button id="btnLogout">Sair</button>
         </div>
+        <span class="sair">
+        <button id="btnLogout">Sair</button>
+    </span>
     </div>
 
     <div id="cryptoContainer">
-        <h3>Gerenciar Criptomoedas</h3>
+        <span class="gerenciar">
+        <h3>Gerenciar <br> Criptomoedas</h3>
+    </span>
         <div class="cryptoForm">
             <input type="text" id="searchCrypto" placeholder="Pesquisar moeda..." />
             <button id="btnSearch">Buscar</button>
