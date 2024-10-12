@@ -1,46 +1,49 @@
 <?php
-// Configurações do banco de dados
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "crypto_db";
+$host = 'localhost';
+$dbname = 'crypto_db';
+$username = 'root';
+$password = '';
 
-// Conectar ao banco de dados
-$conn = new mysqli($servername, $username, $password, $dbname);
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Verificar a conexão
-if ($conn->connect_error) {
-    die("Falha na conexão: " . $conn->connect_error);
-}
+    // Deleta dados com mais de 15 minutos
+    $stmt = $pdo->prepare("DELETE FROM crypto_data WHERE date_collected < NOW() - INTERVAL 15 MINUTE");
+    $stmt->execute();
 
-// API de criptomoedas (usando CoinPaprika)
-$apiUrl = "https://api.coinpaprika.com/v1/tickers";
+    // URL da API da CoinPaprika
+    $url = 'https://api.coinpaprika.com/v1/tickers';
 
-// Fazer a requisição à API
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $apiUrl);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$response = curl_exec($ch);
-curl_close($ch);
+    // Buscar dados da API
+    $response = file_get_contents($url);
+    $coins = json_decode($response, true);
 
-$data = json_decode($response, true);
-
-// Iterar sobre os dados e inserir no banco
-foreach ($data as $coin) {
-    $nome = $coin['name'];
-    $simbolo = $coin['symbol'];
-    $valor = $coin['quotes']['USD']['price'];
-    $data_registro = date('Y-m-d'); // Registrar a data atual
-
-    $sql = "INSERT INTO criptomoedas (nome, simbolo, valor, data_registro)
-            VALUES ('$nome', '$simbolo', '$valor', '$data_registro')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Registro inserido com sucesso: $nome ($simbolo)";
-    } else {
-        echo "Erro: " . $conn->error;
+    if (empty($coins)) {
+        echo "Nenhuma moeda encontrada na API.";
+        exit; // Saia do script se não houver dados
     }
-}
 
-$conn->close();
+    // Preparar inserção dos dados no banco
+    $stmt = $pdo->prepare('INSERT INTO crypto_data (coin_id, name, symbol, price, market_cap, percent_change_24h) 
+                           VALUES (:coin_id, :name, :symbol, :price, :market_cap, :percent_change_24h)');
+
+    foreach ($coins as $coin) {
+        // Verifica se os dados estão corretos antes de inserir
+        var_dump($coin); // Verificar os dados que estão sendo inseridos
+
+        $stmt->execute([
+            ':coin_id' => $coin['id'],
+            ':name' => $coin['name'],
+            ':symbol' => $coin['symbol'],
+            ':price' => $coin['quotes']['USD']['price'],
+            ':market_cap' => $coin['quotes']['USD']['market_cap'],
+            ':percent_change_24h' => $coin['quotes']['USD']['percent_change_24h']
+        ]);
+    }
+
+    echo "Dados salvos com sucesso!";
+} catch (PDOException $e) {
+    echo "Erro: " . $e->getMessage();
+}
 ?>

@@ -2,10 +2,10 @@ CREATE DATABASE IF NOT EXISTS crypto_db;
 
 use crypto_db;
 
-CREATE TABLE criptomoedas (
+CREATE TABLE crypto_prices (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100),
-    simbolo VARCHAR(10),
-    valor DECIMAL(20, 10),
-    data_registro DATE
+    coin_id VARCHAR(255) NOT NULL,
+    price DECIMAL(15, 2) NOT NULL,
+    date DATE NOT NULL,
+    UNIQUE(coin_id, date)
 );

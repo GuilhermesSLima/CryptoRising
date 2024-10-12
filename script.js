@@ -61,89 +61,42 @@ function displayData(detailsArray) {
             <p>Última atualização: ${new Date(details.last_data_at).toLocaleString()}</p>
         `;
 
-        // Ao clicar em uma moeda, carregue os dados históricos e informações
-        listItem.addEventListener('click', () => loadChartData(details.id, details.name));
 
         list.appendChild(listItem);
     });
 }
 
-function loadChartData(coinId, coinName) {
-    const today = new Date();
-    const twoDaysAgo = new Date();
-    twoDaysAgo.setDate(today.getDate() - 2);
+fetch('fetch_data.php')
+  .then(response => response.json())
+  .then(data => {
+    const labels = data.map(entry => new Date(entry.date).toLocaleDateString());
+    const prices = data.map(entry => entry.price);
 
-    const urlHistorical = `${url}coins/${coinId}/ohlcv/historical?start=${twoDaysAgo.toISOString().split('T')[0]}&end=${today.toISOString().split('T')[0]}`;
-
-    fetch(urlHistorical)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Erro HTTP: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Verifica se a resposta é um array válido
-            if (!Array.isArray(data)) {
-                throw new TypeError('A resposta não é um array.');
-            }
-
-            // Extrai as datas e os preços de fechamento
-            const labels = data.map(entry => new Date(entry.time_open).toLocaleDateString());
-            const prices = data.map(entry => entry.close);
-
-            // Atualiza informações adicionais da criptomoeda
-            updateCryptoInfo(coinId);
-
-            // Exibe o gráfico com os dados
-            displayChart(coinName, labels, prices);
-        })
-        .catch(error => console.error('Erro ao carregar dados históricos:', error));
-}
-
-function displayChart(coinName, labels, prices) {
     const ctx = document.getElementById('myChart').getContext('2d');
-
-    if (chart) {
-        chart.destroy(); // Destroi o gráfico anterior, se houver
-    }
-
-    chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels, // Datas
-            datasets: [{
-                label: `Preço de ${coinName}`,
-                data: prices, // Preços
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderWidth: 1,
-                fill: true
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: false
-                }
-            }
-        }
+    new chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Preço das Criptomoedas',
+          data: prices,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderWidth: 1
+        }]
+      }
     });
+  });
+
+
+function saveCryptoData() {
+    // Faz uma requisição AJAX ao servidor para salvar os dados no banco
+    fetch('salvar_valores.php')
+        .then(response => response.text())
+        .then(result => console.log(result))  // Exibe a resposta no console
+        .catch(error => console.error('Erro ao salvar os dados:', error));
 }
 
-function updateCryptoInfo(coinId) {
-    fetch(`${url}coins/${coinId}`)
-        .then(response => response.json())
-        .then(data => {
-            const cryptoName = document.getElementById('cryptoName');
-            const cryptoPrice = document.getElementById('cryptoPrice');
-            const cryptoMarketCap = document.getElementById('cryptoMarketCap');
-            const cryptoChange = document.getElementById('cryptoChange');
-
-            cryptoName.textContent = data.name;
-            cryptoPrice.textContent = `$${data.quotes.USD.price.toFixed(2)}`;
-            cryptoMarketCap.textContent = `$${data.quotes.USD.market_cap.toFixed(2)}`;
-            cryptoChange.textContent = `${data.quotes.USD.percent_change_24h}%`;
-        })
-        .catch(error => console.error('Erro ao carregar dados da criptomoeda:', error));
-}
+// Executa a função imediatamente e depois a cada 5 minutos
+saveCryptoData();
+setInterval(saveCryptoData, 5 * 60 * 1000);  // 5 minutos
