@@ -17,7 +17,7 @@ header {
   align-items: center;
   position: fixed;
   transition: top 0.3s;
-  background: #025E73;
+  background: #ffc60b;
   top: 0;
   left: 0;
   margin-bottom: 7.5rem;
@@ -33,15 +33,16 @@ i {
   cursor: pointer;
 }
 header .logo {
-  flex: 1;
   color: #fff;
   margin-left: 50px;
   font-size: 15px;
 }
 header .search-box {
-  flex: 1;
+  flex: 2;
+  margin-left: 10px;
   position: relative;
 }
+
 .search-box input {
   width: 100%;
   height: 40px;
@@ -93,7 +94,7 @@ header .menu {
 }
 
 main{
-  background-color: #011F26;
+  background-color: #151f28;
   height: 100vh;
   background-repeat: no-repeat;
   background-position: center;
@@ -107,11 +108,11 @@ main{
 
 
 
-section{
+.principal{
   display: flex;
-  align-items: start;
-  justify-content: start;
-  padding: 30px;
+  width: 100%;
+  justify-content: space-around;
+
 }
 
 aside{
@@ -125,12 +126,8 @@ aside{
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.37);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: #001419;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
   color:#fff;
 }
 

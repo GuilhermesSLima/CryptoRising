@@ -337,7 +337,8 @@ justify-content: center;
   padding: 10px;
 }
 .listcontat a{
-  text-decoration: none;
+  text-decoration: underline;
+
   color: #000;
   font-size: 20px;
 }
