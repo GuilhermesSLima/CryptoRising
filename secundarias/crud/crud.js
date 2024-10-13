@@ -47,7 +47,6 @@ auth.onAuthStateChanged(function(user) {
         // Carregar as criptomoedas do usuário no Firebase
         loadUserCryptos(user.uid);
     } else {
-        alert("Você precisa estar logado para acessar essa página.");
         window.location.href = '../login/login.html';
     }
 });

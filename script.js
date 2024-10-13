@@ -72,7 +72,7 @@ function displayData(detailsArray) {
 
 
 // Salva os dados no banco e atualiza o gráfico apenas a cada 3 dias (em milissegundos)
-const threeDaysInMs = 3 * 24 * 60 * 60 * 1000;
+const threeDaysInMs = 24 * 60 * 60 * 1000;
 
 function saveCryptoData() {
     fetch('get_crypto_data.php')
