@@ -9,3 +9,8 @@ CREATE TABLE crypto_prices (
     date DATE NOT NULL,
     UNIQUE(coin_id, date)
 );
+
+ALTER TABLE crypto_prices
+MODIFY date DATETIME NOT NULL;
+
+SELECT * from crypto_db.crypto_prices limit 10000;

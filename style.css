@@ -137,6 +137,8 @@ aside{
 .card{
   display: grid;
   grid-template-columns: 1fr 1fr;
+  padding: 10px;
+  align-items: center;
 }
 
 .listcoin{
@@ -149,7 +151,7 @@ aside{
 .listcoin .moedas{
   border: 2px solid #025E73;
   border-radius: 10px;
-  padding: 10px 5px;
+  padding: 5px;
   margin: 10px;
 }
 
@@ -215,6 +217,17 @@ aside{
 
 *::-webkit-scrollbar-thumb:active {
   background-color: #a3a3a3;
+}
+
+.principal{
+  display: flex;
+  flex-wrap: wrap;
+}
+/* .sesq{
+
+} */
+.sdir{
+  max-width: 500px;
 }
 
 @media (max-width: 1000px) {
