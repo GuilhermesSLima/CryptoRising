@@ -7,9 +7,11 @@ let chart; // Variável para armazenar o gráfico
 window.onscroll = function () {
     let pDepois = window.scrollY;
     let navbar = document.querySelector("header");
+    let links = document.querySelector("link")
 
     if (pAntes > pDepois) {
         navbar.style.top = "0";
+        links.style.color = "#fff";
     } else {
         navbar.style.top = "-100px";
     }

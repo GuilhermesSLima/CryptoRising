@@ -16,6 +16,7 @@ body {
 
 .wrapper {
   display: flex;
+  background-color: #eeba2b;
   justify-content: center;
   align-items: center;
   min-height: 100px;
@@ -53,7 +54,7 @@ body {
 .nav-menu ul li .link {
   text-decoration: none;
   font-weight: 500;
-  color: #333;
+  color: #fff;
   padding-bottom: 15px;
   margin: 0 25px;
 }
@@ -176,15 +177,17 @@ body {
 
 .fundo-1{
   height: 100vh;
-  background: url(/src/images/pprinc/fundo1.svg);
+  background-color: #151f28;
 }
 .primeiro{
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 30px;
 }
 .texto-d{
   font-family: 'Poppins';
+  color: #fff;
   width: 50%;
   height: auto; 
 }
@@ -207,37 +210,46 @@ justify-content: center;
 }
 
 .img-e img{
-  width: 50%;
+  width:100%;
   height: 50%;
 }
 .fundo-2{
   height: 100vh;
-  background: url(/src/images/pprinc/teste.svg);
+  background-color: #151f28;
 }
 .acomp{
   display: flex;
   align-items: center;
+  padding: 0;
+  height: 100%;
+  justify-content: space-between;
 }
 .img-d img{
-  margin-top: 200px;
   width: 600px;
   height: 50%;
 }
 .texto2{
   display: flex;
-  width: 70%;
-  justify-content: end;
-  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 .acompanhe{
-  color: #fafafa;
+  color: #000;
   text-align: end;
+ 
   font-family: 'Poppins';
-  height: auto; 
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
+  padding: 40px;
   font-size: 90px;
+}
+.acompp{
+  width: 50%;
+  justify-content: center;
+  align-self: stretch;
+  background-color: #fff;
 }
 .azul{
   color: #025e73;
@@ -245,21 +257,31 @@ justify-content: center;
 .saiba{
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: space-between;
 }
 .fundo-3{
   height: 100vh;
-  background: url(/src/images/pprinc/fundo3.svg);
+  background-color: #151f28;
+}
+.img3{
+  display: flex;
+  align-self: stretch;
+  height: 100%;
+  justify-content: start;
+}
+.img3 img{
+  height: 100vh;
 }
 .texto3{
   display: flex;
-  justify-content: end;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
   width: auto;
-  margin-top: 50vh;
 }
 .saibaquais{
   text-align: end;
+  color: #fff;
   font-family: 'Poppins';
   height: auto; 
   font-family: "Poppins", sans-serif;
@@ -269,6 +291,67 @@ justify-content: center;
 }
 .amarelo{
   color: #eeba2b;
+}
+.fundo-4{
+  background-color: #151f28;
+  height: 100vh;
+}
+.controle{
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.vccontrole{
+  text-align: start;
+  color: #fff;
+  font-family: 'Poppins';
+  height: auto; 
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 90px;
+}
+.fundo-5{
+  background-color: #151f28;
+  height: 100vh;
+}
+.perguntas{
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.fundo-6{
+  background-color: #eeba2b;
+  height: 30vh;
+}
+.footer{
+  height: 100%;
+  padding: 30px;
+  display: flex;
+}
+.listcontat{
+  list-style: none;
+}
+.listcontat li{
+  padding: 10px;
+}
+.listcontat a{
+  text-decoration: none;
+  color: #000;
+  font-size: 20px;
+}
+.listcontat i{
+  padding: 10px;
+}
+.sobrel a{
+  text-decoration: none;
+  color: #333;
+}
+.divs{
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
 }
 /* Media Queries */
 @media (min-width: 768px) and (max-width: 1023px) {
