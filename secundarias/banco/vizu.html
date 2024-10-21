@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valores Salvos</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Valores de Criptomoedas Salvos no Banco</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Moeda</th>
+                <th>Valor (USD)</th>
+                <th>Data de Registro</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-dados">
+            <!-- Os dados serão inseridos aqui -->
+        </tbody>
+    </table>
+
+    <script>
+        // Fazer uma requisição para buscar os dados
+        fetch('get_crypto_data.php')
+        .then(response => response.json())
+        .then(data => {
+            const tabela = document.getElementById('tabela-dados');
+            data.forEach(item => {
+                const linha = document.createElement('tr');
+                linha.innerHTML = `<td>${item.moeda}</td><td>${item.valor.toFixed(2)}</td><td>${item.data_registro}</td>`;
+                tabela.appendChild(linha);
+            });
+        })
+        .catch(error => console.error('Erro ao buscar os dados:', error));
+    </script>
+</body>
+</html>

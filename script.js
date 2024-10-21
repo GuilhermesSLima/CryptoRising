@@ -72,113 +72,109 @@ function displayData(detailsArray) {
     });
 }
 
-
-// Salva os dados no banco e atualiza o gráfico apenas a cada 3 dias (em milissegundos)
+// Intervalo para verificar se o valor deve ser apagado (3 dias em milissegundos)
 const threeDaysInMs = 24 * 60 * 60 * 1000;
 
+// Função para salvar os dados de todas as moedas no banco de dados
 function saveCryptoData() {
-    fetch('get_crypto_data.php')
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.error('Erro ao salvar os dados:', error));
+    // Obter dados reais da API CoinPaprika
+    fetch('https://api.coinpaprika.com/v1/tickers')  // Tickers contém os dados de várias criptomoedas
+        .then(response => response.json())
+        .then(data => {
+            // Para cada criptomoeda retornada, vamos salvá-la no banco de dados
+            data.forEach(crypto => {
+                const moeda = crypto.symbol;  // Ex: BTC, ETH, etc.
+                const valor = crypto.quotes.USD.price;  // Valor da moeda em USD
+
+                // Cria os dados para enviar ao PHP
+                const dadosMoeda = new URLSearchParams({
+                    'moeda': moeda,
+                    'valor': valor
+                });
+
+                // Enviar para o PHP salvar no banco de dados
+                fetch('get_crypto_data.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: dadosMoeda
+                })
+                .then(response => response.text())
+                .then(result => console.log(`Dados de ${moeda} salvos: ${result}`))
+                .catch(error => console.error(`Erro ao salvar ${moeda}:`, error));
+            });
+        })
+        .catch(error => console.error('Erro ao obter dados da API:', error));
 }
 
-// Executa a função imediatamente e depois a cada 3 dias
+// Função para apagar dados antigos após 3 dias
+function deleteOldData() {
+    fetch('get_crypto_data.php?delete=true', {
+        method: 'GET'
+    })
+    .then(response => response.text())
+    .then(result => console.log('Dados antigos apagados:', result))
+    .catch(error => console.error('Erro ao apagar dados antigos:', error));
+}
+
+// Executa a função imediatamente para salvar os valores de hoje
 saveCryptoData();
-setInterval(saveCryptoData, threeDaysInMs); // Atualiza a cada 3 dias
 
+// Configura a função para ser executada automaticamente a cada 24 horas (1 dia)
+setInterval(saveCryptoData, 24 * 60 * 60 * 1000); // Salva dados diariamente
+setInterval(deleteOldData, threeDaysInMs); // Apaga dados antigos a cada 3 dias
 
-// Assumindo que você terá uma lista de criptomoedas preenchida
-document.addEventListener('DOMContentLoaded', () => {
-    fetchCoins();
-});
+// Função para atualizar o gráfico com os dados do banco de dados
+function atualizarGrafico() {
+    fetch('get_crypto_data.php', {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(data => {
+        let moedas = [...new Set(data.map(item => item.moeda))];  // Todas as moedas no banco de dados
+        let datasets = moedas.map(moeda => {
+            let valoresMoeda = data.filter(item => item.moeda === moeda);
+            let labels = valoresMoeda.map(item => item.data);  // Datas no eixo X
+            let valores = valoresMoeda.map(item => item.valor);  // Valores no eixo Y
 
-// Função para buscar criptomoedas e preencher a lista
-function fetchCoins() {
-    fetch('get_crypto_data.php') // Um script que você precisará criar para obter todas as moedas
-        .then(response => response.json())
-        .then(coins => {
-            const list = document.querySelector('.listcoin');
-            coins.forEach(coin => {
-                const li = document.createElement('li');
-                li.innerHTML = `${coin.rank} - ${coin.name} (${coin.symbol})`;
-                li.setAttribute('data-coin-id', coin.id);
-                li.addEventListener('click', () => loadChart(coin.id, coin.name, coin.price, coin.market_cap, coin.percent_change_24h));
-                list.appendChild(li);
-            });
+            return {
+                label: moeda,  // Nome da moeda no gráfico
+                data: valores,
+                borderColor: randomColor(),  // Cor aleatória para cada moeda
+                borderWidth: 1,
+                fill: false
+            };
         });
-}
-function loadChart(coinId, name) {
-    // Atualiza o nome da criptomoeda imediatamente
-    document.getElementById('cryptoName').textContent = name;
 
-    // Busca detalhes da criptomoeda na API CoinPaprika
-    fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)
-        .then(response => response.json())
-        .then(data => {
-            // Atualiza as informações da criptomoeda no card
-            document.getElementById('cryptoPrice').textContent = data.quotes.USD.price.toFixed(2) + ' USD';
-            document.getElementById('cryptoMarketCap').textContent = data.quotes.USD.market_cap + ' USD';
-            document.getElementById('cryptoChange').textContent = data.quotes.USD.percent_change_24h + '%';
-        })
-        .catch(error => console.error('Erro ao carregar detalhes da moeda:', error));
-
-    // A lógica do gráfico permanece a mesma
-    fetch(`get_crypto_data.php?coin_id=${coinId}`)
-        .then(response => response.json())
-        .then(data => {
-            const ctx = document.getElementById('cryptoChart').getContext('2d');
-            if (window.chartInstance) {
-                window.chartInstance.destroy();
-            }
-            window.chartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: data.labels,
-                    datasets: [{
-                        label: 'Preço',
-                        data: data.prices,
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1,
-                        fill: false
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: false,
-                            ticks: {
-                                color: '#fff'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: '#fff'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#fff'
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(tooltipItem) {
-                                    let date = new Date(tooltipItem.label);
-                                    let formattedDate = date.toLocaleString();
-                                    return `Preço: ${tooltipItem.raw} (em ${formattedDate})`;
-                                }
-                            }
-                        }
-                    }
+        // Atualizar o gráfico com todas as moedas
+        const ctx = document.getElementById('meuGrafico').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [...new Set(data.map(item => item.data))],  // Datas únicas
+                datasets: datasets
+            },
+            options: {
+                scales: {
+                    x: { type: 'time', time: { unit: 'day' } },
+                    y: { beginAtZero: false }
                 }
-            });
-
-            // Exibe o gráfico
-            document.getElementById('cryptoChart').style.display = 'block';
-        })
-        .catch(error => console.error('Erro ao carregar dados do gráfico:', error));
+            }
+        });
+    })
+    .catch(error => console.error('Erro ao atualizar o gráfico:', error));
 }
+
+// Função para gerar cores aleatórias para as moedas no gráfico
+function randomColor() {
+    const r = Math.floor(Math.random() * 255);
+    const g = Math.floor(Math.random() * 255);
+    const b = Math.floor(Math.random() * 255);
+    return `rgba(${r}, ${g}, ${b}, 1)`;
+}
+
+// Executa a função imediatamente para salvar os valores de hoje
+saveCryptoData();
+atualizarGrafico();
+
+// Configura a função para ser executada automaticamente a cada 3 dias
+setInterval(saveCryptoData, threeDaysInMs);  // Salva dados a cada 3 dias
